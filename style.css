@@ -332,3 +332,11 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
  .palette-library-card{padding:10px}
  .palette-library-color{width:20px;height:20px}
 }
+
+/* 0.2.63 — selección de varias capas (PC y móvil). */
+.layer-selection-help{font-size:10px;line-height:1.4;color:var(--nx-a4b2c5,#a4b2c5);margin:5px 0 8px}
+.layer.multi-selected{box-shadow:inset 3px 0 0 var(--nx-74c0f4,#74c0f4);border-color:var(--nx-6c9bc7,#6c9bc7)}
+.layer.multi-selected.active{border-color:var(--nx-4dd8f8,#4dd8f8);background:var(--nx-16495e,#16495e)}
+.layer .layer-select-multi{flex:0 0 15px;width:15px;height:15px;min-width:15px;min-height:15px;margin:0 3px 0 0;
+ accent-color:var(--nx-55d8f3,#55d8f3);cursor:pointer}
+.layer .layer-select-multi:focus-visible{outline:2px solid var(--nx-55d8f3,#55d8f3);outline-offset:2px}

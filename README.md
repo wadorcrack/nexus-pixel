@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.62** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.63** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -245,3 +245,17 @@ Las opciones **Nueva paleta**, **Importar/Exportar paleta** y
 el formato JSON de intercambio y el almacenamiento local de v0.2.60.
 La ventana sigue la misma regla que otros diálogos: no se cierra al pulsar
 fuera ni con Esc; se cierra con su botón X.
+
+### Selección múltiple de capas y mover (0.2.63)
+
+**Mover** actúa únicamente en las capas seleccionadas, visibles y desbloqueadas; las
+demás capas no se modifican. Si todas las seleccionadas están bloqueadas u
+ocultas, no comienza el movimiento y no se crea Deshacer. El dibujo se sigue
+haciendo en la capa activa (una sola).
+
+El panel CAPAS admite clic para seleccionar una capa, Ctrl/Cmd + clic para
+añadir/quitar, Shift + clic para seleccionar un rango, y casillas independientes
+para selección múltiple táctil en móvil. La última capa no puede desmarcarse.
+Deshacer/Rehacer y los proyectos JSON guardan/restauran la selección de capas;
+se conserva la compatibilidad con proyectos anteriores. Al crear, eliminar,
+importar y reordenar capas se mantiene una selección válida.
