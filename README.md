@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.63** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.64** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -72,41 +72,13 @@ una página web no puede reemplazarlo por una ventana personalizada.
 Esta confirmación **no guarda automáticamente** el proyecto. Sigue siendo
 necesario guardar el archivo JSON si quieres conservar los cambios.
 
-## Interfaz móvil (0.2.54)
+## Enfoque PC y futuro Android (v0.2.64)
 
-La misma URL sirve en teléfonos y computadoras. En pantallas estrechas:
-- El lienzo ocupa el área central y los paneles laterales se abren desde la barra inferior.
-- **Herramientas**, **Colores** y **Capas** se abren como cajones que se pueden cerrar sin cambiar el dibujo.
-- **Mover vista** permite arrastrar el lienzo con un dedo o ajustar el zoom con dos dedos; desactívalo para volver a pintar.
-- El botón **Color 1/2** elige el color que usarán los toques, incluidos los valores de opacidad guardados.
-- Controles rápidos de **deshacer**, **rehacer**, **zoom** y **ajustar**.
-- La línea de tiempo y las ventanas de importación/exportación se adaptan a la pantalla.
-- El diseño original de escritorio se conserva.
-
-Los archivos `mobile.css` y `mobile.js` no modifican los proyectos existentes.
-En dispositivos con recursos limitados, trabaja con lienzos y capas acordes a la memoria del teléfono.
-
-## HTML separados para móvil y escritorio (0.2.54)
-
-- `index.html`: interfaz PC, detección de móvil y redirección.
-- `mobile.html`: interfaz móvil, con paneles táctiles, mover vista y zoom.
-- `style.css` y `app.js`: estilos y motor de dibujo compartidos.
-- `mobile.css` y `mobile.js`: distribución y gestos táctiles solo para móviles.
-
-`https://wadorcrack.github.io/nexus-pixel/` detecta los dispositivos móviles y abre `mobile.html`.
-Prueba manual en PC: `/?mobile=1`. Forzar PC en móvil: `/?desktop=1`.
-`sw.js` incluye ambos HTML para uso sin conexión después de la primera visita.
-
-## Arreglos móviles 0.2.54
-
-- Un dedo pinta (o desplaza con «Mover vista»), pero **dos dedos siempre
-  permiten pellizcar para ampliar, reducir y desplazar**.
-- Cuando se inicia un gesto con dos dedos se cancela el trazo del primer dedo
-  y se intenta restaurar su imagen anterior desde el historial disponible.
-- El botón **✕ Sel.** aparece al usar una herramienta de selección
-  o después de seleccionar píxeles. Elimina la máscara y vuelve al lápiz.
-- Los controles táctiles se implementan solo en `mobile.js`; el mismo
-  `app.js` y los formatos JSON continúan compartidos con PC.
+Esta edición es **solo web para PC**. Se eliminaron `mobile.html`,
+`mobile.js` y `mobile.css`, y se quitó la redirección automática a la
+interfaz móvil. Los recursos comunes del editor y la versión PWA para PC
+se mantienen. La futura aplicación Android se desarrollará por separado;
+**no hay actualmente versión Android publicada**.
 
 ## Ventanas modales protegidas (0.2.56)
 
@@ -259,3 +231,14 @@ para selección múltiple táctil en móvil. La última capa no puede desmarcars
 Deshacer/Rehacer y los proyectos JSON guardan/restauran la selección de capas;
 se conserva la compatibilidad con proyectos anteriores. Al crear, eliminar,
 importar y reordenar capas se mantiene una selección válida.
+
+## Organizar fotogramas en la línea de tiempo (v0.2.64)
+
+- **PC:** arrastra la miniatura de un fotograma sobre otra de **la misma fila de animación**
+  para moverlo a esa posición. No permite mezclar fotogramas entre filas diferentes.
+- Selecciona un fotograma y usa las flechas **←** y **→** en la barra de la
+  línea de tiempo para desplazarlo una posición sin utilizar arrastrar y soltar.
+- La operación conserva el contenido RGBA y los milisegundos de cada fotograma,
+  respeta el fotograma actual, admite Deshacer/Rehacer y queda incluida en el orden
+  guardado en el proyecto JSON y en la exportación posterior de animaciones.
+- La reproducción se detiene antes de cambiar el orden para que no se mezcle con el arrastre.

@@ -387,7 +387,30 @@ function makeThumbnail(f){
  thumb.getContext('2d').putImageData(new ImageData(data,58,58),0,0);
  return thumb;
 }
+// El fotograma se mueve dentro de su propia fila, sin modificar píxeles ni duración.
+let frameDragState=null;
+function moveFrame(track,from,to){
+ if(!track||!Array.isArray(track.frames)||!Number.isInteger(from)||!Number.isInteger(to)
+    ||from<0||to<0||from>=track.frames.length||to>=track.frames.length||from===to)return false;
+ if(playing)togglePlay();
+ const selectedFrame=track.name===currentAnimation?frames[selected]:null;
+ snapshot();
+ const [moving]=track.frames.splice(from,1);
+ track.frames.splice(to,0,moving);
+ if(selectedFrame)selected=track.frames.indexOf(selectedFrame);
+ frameDragState=null;
+ refresh();
+ msg('Fotograma '+(from+1)+' movido a la posición '+(to+1)+' en '+track.name);
+ return true;
+}
+function updateFrameOrderButtons(){
+ $('frameMoveLeft').disabled=!animationEnabled||frames.length<2||selected<=0;
+ $('frameMoveRight').disabled=!animationEnabled||frames.length<2||selected>=frames.length-1;
+}
+$('frameMoveLeft').onclick=()=>moveFrame(activeTrack(),selected,selected-1);
+$('frameMoveRight').onclick=()=>moveFrame(activeTrack(),selected,selected+1);
 function drawFrames(){
+ updateFrameOrderButtons();
  if(!animationEnabled)return;
  const holder=$('frames');holder.replaceChildren();
  animationTracks.forEach((track,rowIndex)=>{
@@ -415,8 +438,34 @@ function drawFrames(){
   const strip=document.createElement('div');strip.className='frames';
   track.frames.forEach((f,i)=>{
    const b=document.createElement('button');b.type='button';b.className='frame'+(active&&i===selected?' active':'');
-   b.title=track.name+' · fotograma '+(i+1)+' · '+f.duration+' ms';
+   b.title=track.name+' · fotograma '+(i+1)+' · '+f.duration+' ms · arrastra para cambiar su orden';
+   b.draggable=true;
+   b.setAttribute('aria-label','Fotograma '+(i+1)+' de '+track.name+' · '+f.duration+' milisegundos · arrastrar para reordenar');
    b.append(makeThumbnail(f),document.createTextNode(' '+(i+1)+' · '+f.duration+'ms'));
+   b.ondragstart=e=>{
+    if(playing)togglePlay();
+    frameDragState={track,from:i};
+    e.dataTransfer.effectAllowed='move';
+    e.dataTransfer.setData('text/plain','nexus-pixel-frame:'+rowIndex+':'+i);
+    b.classList.add('frame-dragging');
+   };
+   b.ondragover=e=>{
+    if(!frameDragState||frameDragState.track!==track)return;
+    e.preventDefault();e.dataTransfer.dropEffect='move';b.classList.add('frame-drop-target');
+   };
+   b.ondragleave=e=>{if(!b.contains(e.relatedTarget))b.classList.remove('frame-drop-target')};
+   b.ondrop=e=>{
+    if(!frameDragState||frameDragState.track!==track)return;
+    e.preventDefault();e.stopPropagation();
+    const from=frameDragState.from;frameDragState=null;
+    b.classList.remove('frame-drop-target');
+    moveFrame(track,from,i);
+   };
+   b.ondragend=()=>{
+    frameDragState=null;
+    document.querySelectorAll('.frame-dragging,.frame-drop-target').forEach(el=>
+      el.classList.remove('frame-dragging','frame-drop-target'));
+   };
    b.onclick=()=>{
     if(track.name!==currentAnimation)switchAnimation(track.name);
     selected=i;activeLayer=Math.min(activeLayer,layerNames.length-1);preview=null;refresh();

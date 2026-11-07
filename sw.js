@@ -1,9 +1,9 @@
-// Nexus Pixel 0.2.63: preferir contenido actualizado en línea,
-// conservando la aplicación y ambos HTML para uso sin Internet.
-const CACHE_NAME = "nexus-pixel-v0.2.63";
+// Nexus Pixel 0.2.64: preferir contenido actualizado en línea,
+// conservando solo el editor PC para uso sin Internet.
+const CACHE_NAME = "nexus-pixel-v0.2.64";
 const ASSETS = [
-  "./", "./index.html", "./mobile.html", "./style.css", "./mobile.css", "./theme.css", "./theme.js",
-  "./app.js", "./palette-library.js", "./iso-geometry.js", "./mobile.js", "./dialog-guard.js", "./tooltip.js", "./pwa.js",
+  "./", "./index.html", "./style.css", "./theme.css", "./theme.js",
+  "./app.js", "./palette-library.js", "./iso-geometry.js", "./dialog-guard.js", "./tooltip.js", "./pwa.js",
   "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"
 ];
 
@@ -51,9 +51,7 @@ self.addEventListener("fetch", event => {
         const cached = await caches.match(request, {ignoreSearch: true});
         if (cached) return cached;
         if (request.mode === "navigate") {
-          const fallback = url.pathname.endsWith("/mobile.html")
-            ? "./mobile.html" : "./index.html";
-          return (await caches.match(fallback)) || Response.error();
+          return (await caches.match("./index.html")) || Response.error();
         }
         return Response.error();
       })

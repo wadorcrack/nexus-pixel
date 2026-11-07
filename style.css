@@ -340,3 +340,9 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 .layer .layer-select-multi{flex:0 0 15px;width:15px;height:15px;min-width:15px;min-height:15px;margin:0 3px 0 0;
  accent-color:var(--nx-55d8f3,#55d8f3);cursor:pointer}
 .layer .layer-select-multi:focus-visible{outline:2px solid var(--nx-55d8f3,#55d8f3);outline-offset:2px}
+
+/* Nexus Pixel PC v0.2.64: reordenar fotogramas desde la línea de tiempo. */
+.animation-track .frame[draggable="true"]{cursor:grab;user-select:none}
+.animation-track .frame.frame-dragging{opacity:.42;cursor:grabbing}
+.animation-track .frame.frame-drop-target{outline:2px dashed var(--nx-58d7f3,#58d7f3);outline-offset:2px}
+.timeline-head #frameMoveLeft:disabled,.timeline-head #frameMoveRight:disabled{opacity:.35;cursor:not-allowed}
