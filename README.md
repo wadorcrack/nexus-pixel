@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.58** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.59** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -175,3 +175,21 @@ La PWA precachea ambos nuevos recursos para usarlos sin conexión.
 - Funciona tanto en `index.html` como en `mobile.html`, mediante el
   mismo motor y archivo compartido `iso-geometry.js`. No usa librerías
   externas ni cambia la lógica de zoom táctil.
+
+## Selección aditiva con Shift (0.2.59)
+
+Las tres herramientas de selección (rectangular, libre y mágica) reemplazan
+la máscara anterior al seleccionar sin modificadores. Si se mantiene **Shift**
+al iniciar una selección, el área nueva se une a la existente (OR binario),
+sin eliminar ni duplicar regiones. En las selecciones de arrastre, el estado
+de Shift se guarda desde que comienza el gesto y también se acepta si está
+pulsado al soltarlo.
+
+- Rectangular: Shift + arrastrar para sumar un rectángulo.
+- Libre: Shift + dibujar el contorno para sumar la región.
+- Mágica: Shift + clic para sumar los píxeles conectados coincidentes.
+- Cancelar o reiniciar una selección restablece el estado de Shift.
+
+No cambia la máscara guardada de proyectos ni las exportaciones. El editor
+móvil conserva sus controles táctiles; los usuarios con teclado externo
+también pueden usar Shift.

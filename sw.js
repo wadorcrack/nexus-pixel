@@ -1,6 +1,6 @@
-// Nexus Pixel 0.2.58: preferir contenido actualizado en línea,
+// Nexus Pixel 0.2.59: preferir contenido actualizado en línea,
 // conservando la aplicación y ambos HTML para uso sin Internet.
-const CACHE_NAME = "nexus-pixel-v0.2.58";
+const CACHE_NAME = "nexus-pixel-v0.2.59";
 const ASSETS = [
   "./", "./index.html", "./mobile.html", "./style.css", "./mobile.css", "./theme.css", "./theme.js",
   "./app.js", "./iso-geometry.js", "./mobile.js", "./dialog-guard.js", "./tooltip.js", "./pwa.js",
