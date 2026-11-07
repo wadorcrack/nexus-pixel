@@ -1,6 +1,14 @@
 // Nexus Pixel PWA: registro offline e instalación opcional de Chrome.
 (() => {
   "use strict";
+  // Solicitar confirmación nativa al cerrar la ventana, pestaña o recargar.
+  // Chrome solo permite mostrarla cuando el usuario ha interactuado con la página.
+  // El texto y los botones del aviso son controlados por el navegador.
+  window.addEventListener("beforeunload", event => {
+    event.preventDefault();
+    event.returnValue = true; // Compatibilidad con implementaciones anteriores.
+  });
+
   const installButton = document.getElementById("installPwa");
   let deferredPrompt = null;
   if ("serviceWorker" in navigator) {
