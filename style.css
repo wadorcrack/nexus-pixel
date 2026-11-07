@@ -220,3 +220,28 @@ header #toggleAnimation[aria-pressed="true"]{background:#164e65;border-color:#48
 .layer.layer-dragging{opacity:.5}
 .layer.layer-drop-target{outline:2px dashed #58d7f3;outline-offset:1px}
 .right .layer .layer-action:disabled{opacity:.22;cursor:default}
+
+/* Tooltips flotantes: fuera de paneles con overflow, sobre el visor y dialogos. */
+.icon-btn::after,.icon-btn:hover::after,.icon-btn:focus-visible::after{
+  display:none!important;
+  content:none!important;
+}
+#nexusFloatingTooltip{
+  position:fixed;
+  inset:auto;
+  margin:0;
+  width:max-content;
+  max-width:min(300px,calc(100vw - 16px));
+  padding:6px 9px;
+  font:400 12px/1.35 system-ui,Segoe UI,sans-serif;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  color:#f4f8ff;
+  background:#080d15;
+  border:1px solid #55657a;
+  border-radius:5px;
+  box-shadow:0 5px 16px #000a;
+  pointer-events:none;
+  z-index:2147483647;
+}
+#nexusFloatingTooltip:not(:popover-open):not(.tooltip-fallback-open){display:none}
