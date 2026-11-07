@@ -345,4 +345,27 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 .animation-track .frame[draggable="true"]{cursor:grab;user-select:none}
 .animation-track .frame.frame-dragging{opacity:.42;cursor:grabbing}
 .animation-track .frame.frame-drop-target{outline:2px dashed var(--nx-58d7f3,#58d7f3);outline-offset:2px}
-.timeline-head #frameMoveLeft:disabled,.timeline-head #frameMoveRight:disabled{opacity:.35;cursor:not-allowed}
+
+/* Nexus Pixel 0.2.65: controles de línea de tiempo ordenados por función. */
+.timeline-head{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.timeline-heading{display:flex;flex-direction:column;gap:3px;align-self:center;min-width:92px}
+.timeline-heading>b{font-size:13px}
+.timeline-heading .muted{font-size:10px;line-height:1.35;white-space:nowrap}
+.timeline-control-groups{display:flex;align-items:stretch;justify-content:flex-end;gap:7px;flex-wrap:wrap}
+.timeline-control-group{display:flex;flex-direction:column;justify-content:center;gap:5px;
+ border:1px solid var(--nx-435065,#435065);border-radius:7px;
+ padding:6px 8px;background:var(--nx-182332,#182332)}
+.timeline-group-label{color:var(--nx-b9c9dc,#b9c9dc);font-size:10px;
+ font-weight:600;line-height:1.1;white-space:nowrap}
+.timeline-group-buttons{display:flex;gap:4px;align-items:center}
+.timeline-group-buttons .icon-btn{width:30px;height:29px;min-width:30px;padding:5px;
+ display:inline-flex;align-items:center;justify-content:center}
+.timeline-playback-group{border-color:var(--nx-506779,#506779)}
+.timeline-playback-btn .lucide-icon{fill:currentColor;stroke:none;width:18px;height:18px}
+.timeline-playback-btn[aria-pressed="true"]{color:var(--nx-5ddcf5,#5ddcf5);
+ border-color:var(--nx-5ddcf5,#5ddcf5)}
+.timeline-duration-group input{width:75px;min-width:65px;height:29px;font-size:12px;padding:4px 6px}
+@media(max-width:950px){
+ .timeline-head{justify-content:flex-start;gap:8px}
+ .timeline-control-groups{justify-content:flex-start}
+}

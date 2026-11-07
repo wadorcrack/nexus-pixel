@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.64** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.65** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -242,3 +242,12 @@ importar y reordenar capas se mantiene una selección válida.
   respeta el fotograma actual, admite Deshacer/Rehacer y queda incluida en el orden
   guardado en el proyecto JSON y en la exportación posterior de animaciones.
 - La reproducción se detiene antes de cambiar el orden para que no se mezcle con el arrastre.
+
+## Barra de la línea de tiempo (v0.2.65)
+
+La barra se organiza en grupos visualmente diferenciados: **Filas** (crear/borrar
+fila de animación), **Reproducir** (único botón Play/Detener con triángulo y
+cuadrado sólidos), **Fotogramas** (crear, duplicar y borrar) y **Duración · ms**
+(campo del fotograma seleccionado). Se quitaron las flechas de mover fotogramas
+del encabezado; **arrastrar y soltar miniaturas dentro de la misma fila**
+sigue siendo la forma de organizarlos, con Deshacer/Rehacer y persistencia del orden.

@@ -403,14 +403,7 @@ function moveFrame(track,from,to){
  msg('Fotograma '+(from+1)+' movido a la posición '+(to+1)+' en '+track.name);
  return true;
 }
-function updateFrameOrderButtons(){
- $('frameMoveLeft').disabled=!animationEnabled||frames.length<2||selected<=0;
- $('frameMoveRight').disabled=!animationEnabled||frames.length<2||selected>=frames.length-1;
-}
-$('frameMoveLeft').onclick=()=>moveFrame(activeTrack(),selected,selected-1);
-$('frameMoveRight').onclick=()=>moveFrame(activeTrack(),selected,selected+1);
 function drawFrames(){
- updateFrameOrderButtons();
  if(!animationEnabled)return;
  const holder=$('frames');holder.replaceChildren();
  animationTracks.forEach((track,rowIndex)=>{
@@ -969,7 +962,7 @@ for(const id of ['guideGrid','guideWidth','guideHeight','guideColor','guideOpaci
 setAnimationEnabled(false);
 loadGuideControls();
 loadIsometricSettings();
-function togglePlay(){playing=!playing;$('play').innerHTML=nexusIcon(playing?'square':'play');$('play').dataset.tooltip=playing?'Detener animación':'Reproducir animación';$('play').setAttribute('aria-label',$('play').dataset.tooltip);clearTimeout(timer);if(playing)tick()}
+function togglePlay(){playing=!playing;$('play').innerHTML=nexusIcon(playing?'square':'play');$('play').dataset.tooltip=playing?'Detener animación':'Reproducir animación';$('play').setAttribute('aria-label',$('play').dataset.tooltip);$('play').setAttribute('aria-pressed',String(playing));clearTimeout(timer);if(playing)tick()}
 $('play').onclick=togglePlay;
 $('addLayer').onclick=()=>{try{ensureProjectSize(W,H,layerNames.length+1,frames.length)}catch(e){msg(e.message);return}snapshot();layerNames.push('Capa '+(layerNames.length+1));layerVisible.push(true);layerLocked.push(false);animationTracks.forEach(t=>t.frames.forEach(f=>f.layers.push(blank())));activeLayer=layerNames.length-1;normalizeLayerSelection([activeLayer],activeLayer);refresh()};
 $('deleteLayer').onclick=()=>{if(layerNames.length===1){msg('Debe existir una capa');return}snapshot();layerNames.splice(activeLayer,1);layerVisible.splice(activeLayer,1);layerLocked.splice(activeLayer,1);animationTracks.forEach(t=>t.frames.forEach(f=>f.layers.splice(activeLayer,1)));activeLayer=Math.min(activeLayer,layerNames.length-1);normalizeLayerSelection([activeLayer],activeLayer);refresh()};
