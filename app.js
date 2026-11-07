@@ -93,7 +93,9 @@ const DEFAULT_PALETTE=['#000000','#ffffff','#ef4444','#fb923c','#facc15','#22c55
 let palette=DEFAULT_PALETTE.map(hex=>({hex,alpha:255}));
 let paletteLibrary=NexusPixelPaletteLibrary.load(palette);
 palette=NexusPixelPaletteLibrary.active(paletteLibrary).swatches;
-let selectedSwatch=6,selectedSwatchRight=-1,activeColorSide='left',strokeSide='left',randomColorEnabled=false;
+let selectedSwatch=palette.findIndex(s=>s.hex===color&&s.alpha===alpha);
+let selectedSwatchRight=palette.findIndex(s=>s.hex===colorEnd&&s.alpha===alphaEnd);
+let activeColorSide='left',strokeSide='left',randomColorEnabled=false;
 // Cada pulsación deposita pintura como máximo una vez sobre cada píxel.
 let strokePainted=null;
 let brushSize=1;
@@ -687,7 +689,7 @@ $('swapColors').onclick=()=>{const left={hex:color,alpha},right={hex:colorEnd,al
 $('activeColor').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,e.target.value,v.alpha,-1)};
 $('activeAlpha').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,v.hex,Math.round(Number(e.target.value)*255/100),-1)};
 $('addSwatch').onclick=()=>{if(palette.length>=128){msg('Máximo de 128 muestras');return}const v=sideValues(activeColorSide);palette.push({...v});selectSwatch(palette.length-1,activeColorSide);persistPaletteLibrary();msg('Color de pintura guardado en la paleta activa')};
-$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();persistPaletteLibrary();msg('Muestra eliminada')};
+$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0||i>=palette.length){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();persistPaletteLibrary();msg('Muestra eliminada')};
 $('savePalette').onclick=()=>{
  const active=NexusPixelPaletteLibrary.active(paletteLibrary);
  download(JSON.stringify({type:'nexus-pixel-palette',version:1,name:active.name,swatches:palette},null,2),'nexus-pixel-paleta.json','application/json');

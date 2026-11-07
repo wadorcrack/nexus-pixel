@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.60** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.61** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -219,3 +219,10 @@ también pueden usar Shift.
   `palette-library.js` para trabajar offline.
 - Si el almacenamiento local está bloqueado, el editor sigue funcionando pero
   muestra un aviso para exportar la biblioteca como respaldo.
+
+### Ajuste de estabilidad 0.2.61
+
+Al iniciar, se recalcula la muestra seleccionada según el color de pintura
+actual y el contenido real de la biblioteca guardada. Eliminar una muestra
+requiere un índice válido, evitando borrar otra muestra si la biblioteca
+activa se ha modificado o es más pequeña que la anterior.
