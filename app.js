@@ -962,7 +962,15 @@ for(const id of ['guideGrid','guideWidth','guideHeight','guideColor','guideOpaci
 setAnimationEnabled(false);
 loadGuideControls();
 loadIsometricSettings();
-function togglePlay(){playing=!playing;$('play').innerHTML=nexusIcon(playing?'square':'play');$('play').dataset.tooltip=playing?'Detener animación':'Reproducir animación';$('play').setAttribute('aria-label',$('play').dataset.tooltip);$('play').setAttribute('aria-pressed',String(playing));clearTimeout(timer);if(playing)tick()}
+function togglePlay(){
+ playing=!playing;
+ const button=$('play');
+ button.innerHTML=nexusIcon(playing?'square':'play');
+ button.dataset.tooltip=playing?'Detener · Espacio':'Reproducir · Espacio';
+ button.setAttribute('aria-label',playing?'Detener animación':'Reproducir animación');
+ clearTimeout(timer);
+ if(playing)tick();
+}
 $('play').onclick=togglePlay;
 $('addLayer').onclick=()=>{try{ensureProjectSize(W,H,layerNames.length+1,frames.length)}catch(e){msg(e.message);return}snapshot();layerNames.push('Capa '+(layerNames.length+1));layerVisible.push(true);layerLocked.push(false);animationTracks.forEach(t=>t.frames.forEach(f=>f.layers.push(blank())));activeLayer=layerNames.length-1;normalizeLayerSelection([activeLayer],activeLayer);refresh()};
 $('deleteLayer').onclick=()=>{if(layerNames.length===1){msg('Debe existir una capa');return}snapshot();layerNames.splice(activeLayer,1);layerVisible.splice(activeLayer,1);layerLocked.splice(activeLayer,1);animationTracks.forEach(t=>t.frames.forEach(f=>f.layers.splice(activeLayer,1)));activeLayer=Math.min(activeLayer,layerNames.length-1);normalizeLayerSelection([activeLayer],activeLayer);refresh()};
@@ -1461,6 +1469,17 @@ document.addEventListener('keyup',e=>{
   shapeShiftHeld=false;renderShapePreview(lastShapePointer,false);
  }
 });
+// Espacio reproduce/detiene cuando el editor tiene el foco, nunca al escribir.
+function handlePlaybackSpace(e){
+ if(e.code!=='Space'&&e.key!==' ')return;
+ if(!animationEnabled||e.repeat||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;
+ const target=e.target;
+ if(target&&(target.isContentEditable||
+   (target.closest&&target.closest('input,textarea,select,button,[contenteditable],dialog,[role="textbox"]'))))return;
+ e.preventDefault();
+ togglePlay();
+}
+document.addEventListener('keydown',handlePlaybackSpace);
 document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;if((e.ctrlKey||e.metaKey)&&!e.altKey){const k=e.key.toLowerCase();if(k==='c'||k==='x'||k==='v'){e.preventDefault();if(k==='v')startPaste();else copySelectedPixels(k==='x');return}}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();$('redo').click();return}if(e.key==='['){setBrushSize(brushSize-1);return}if(e.key===']'){setBrushSize(brushSize+1);return}if(e.key==='Escape'){if(moveOrigin){endMove(false);msg('Movimiento cancelado');return}if(!$('colorPopup').hidden){$('colorPopup').hidden=true;return}if(pastePlacement){pastePlacement=null;draw();msg('Pegado cancelado')}else{resetSelection();draw();msg('Selección quitada')}return}const keys={b:'pencil',e:'eraser',g:'fill',i:'picker',l:'line',r:'rect',o:'ellipse',s:'spray',m:'select-rect',n:'select-lasso',w:'select-magic',v:'move'};if(e.key.toLowerCase()==='x'){const left={hex:color,alpha},right={hex:colorEnd,alpha:alphaEnd};const i=selectedSwatch;assignSide('left',right.hex,right.alpha,selectedSwatchRight);assignSide('right',left.hex,left.alpha,i);return}if(keys[e.key.toLowerCase()])selectTool(keys[e.key.toLowerCase()])});refresh();
 // Interface for the independent mobile controller. All mutations stay inside the editor.
 // Punto de retorno del primer dedo. Si aparece otro dedo, se descarta solo

@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.65** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.66** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -251,3 +251,15 @@ cuadrado sólidos), **Fotogramas** (crear, duplicar y borrar) y **Duración · m
 (campo del fotograma seleccionado). Se quitaron las flechas de mover fotogramas
 del encabezado; **arrastrar y soltar miniaturas dentro de la misma fila**
 sigue siendo la forma de organizarlos, con Deshacer/Rehacer y persistencia del orden.
+
+## Línea de tiempo mínima y atajo Espacio (0.2.66)
+
+Barra de iconos separados únicamente por tres líneas verticales: operaciones
+de filas, reproducción, operaciones de fotogramas y entrada numérica de duración.
+Se retiran los textos/rectángulos de los grupos. El Play tiene iconos sólidos
+y no adopta la apariencia de botón seleccionado durante la reproducción.
+
+**Espacio** alterna reproducir/detener cuando la línea de tiempo está
+habilitada y el foco no está en un campo, botón, selector, ventana u otro control.
+Se ignoran eventos de repetición por tecla mantenida. El Play sigue admitiendo
+clic y activación de teclado habitual; el arrastre para organizar fotogramas no cambia.
