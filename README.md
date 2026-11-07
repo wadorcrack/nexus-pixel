@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.54** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.55** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -107,3 +107,16 @@ Prueba manual en PC: `/?mobile=1`. Forzar PC en móvil: `/?desktop=1`.
   o después de seleccionar píxeles. Elimina la máscara y vuelve al lápiz.
 - Los controles táctiles se implementan solo en `mobile.js`; el mismo
   `app.js` y los formatos JSON continúan compartidos con PC.
+
+## Ventanas modales protegidas (0.2.55)
+
+En PC y móvil, los cuadros **Importar imagen**, **Exportar** y
+**Redimensionar lienzo** no se cierran al hacer clic o tocar fuera de ellos.
+También se evita el cierre por Escape para no perder configuraciones accidentales.
+
+Se cierran únicamente mediante los botones de cerrar/cancelar o al
+terminar la operación. Una importación pendiente se conserva en el diálogo
+hasta que el usuario la cancele o confirme; el cuadro Exportar mantiene
+el nombre y las opciones mientras permanece abierto.
+
+Ninguna herramienta de dibujo ni formato de proyecto se modificó.

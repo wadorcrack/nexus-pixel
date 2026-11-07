@@ -748,7 +748,7 @@ $('resize').onclick=()=>{
  syncResizeMode();resizeDialog.showModal();
  requestAnimationFrame(renderResizePreview);
 };
-resizeDialog.addEventListener('cancel',()=>{});
+resizeDialog.addEventListener('cancel',e=>e.preventDefault());
 $('closeResize').onclick=$('cancelResize').onclick=()=>resizeDialog.close();
 document.querySelectorAll('input[name=resizeMode]').forEach(b=>b.onchange=()=>{
  if(!b.checked)return;
@@ -913,7 +913,8 @@ function importSpritesheet(){
 $('closeImport').onclick=()=>importDialog.close();
 $('cancelImport').onclick=()=>importDialog.close();
 importDialog.addEventListener('close',releaseImport);
-importDialog.addEventListener('click',e=>{if(e.target===importDialog)importDialog.close()});
+// El diálogo conserva la selección y la configuración mientras se hace clic fuera.
+importDialog.addEventListener('cancel',e=>e.preventDefault());
 $('confirmImport').onclick=()=>{
  if(!pendingImport)return;
  try{
@@ -990,7 +991,8 @@ function setSheetExportView(showSettings){
 $('openExport').onclick=()=>{setSheetExportView(false);exportDialog.showModal();$('exportFileName').focus();$('exportFileName').select()};
 $('closeExport').onclick=()=>exportDialog.close();
 $('sheetExportBack').onclick=()=>setSheetExportView(false);
-exportDialog.addEventListener('click',e=>{if(e.target===exportDialog)exportDialog.close()});
+// No cerrar una exportación configurada por un clic sobre el fondo.
+exportDialog.addEventListener('cancel',e=>e.preventDefault());
 $('new').onclick=()=>{if(!confirm('¿Crear proyecto nuevo? Se perderán los cambios no guardados.'))return;W=32;H=32;characterPack=null;setAnimationTracks([{name:'Animación 1',frames:[{duration:150,layers:[new Uint8ClampedArray(32*32*4)]}]}],'Animación 1');setAnimationEnabled(false);guideGridEnabled=false;guideCellWidth=32;guideCellHeight=32;guideGridColor='#5ac8ef';guideGridAlpha=55;randomColorEnabled=false;$('randomColor').checked=false;loadGuideControls();updateAnimationUI();layerNames=['Capa 1'];layerVisible=[true];layerLocked=[false];selected=activeLayer=0;undo=[];redo=[];resetSelection();$('width').value=W;$('height').value=H;const dimensionLabel=$('canvasDimensions');if(dimensionLabel)dimensionLabel.textContent=`${W} × ${H} px`;setZoom(12);refresh()};
 function exportFilename(extension){
  const input=$('exportFileName');
