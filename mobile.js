@@ -1,7 +1,7 @@
-// Nexus Pixel Mobile 0.2.52 — vista táctil independiente de escritorio.
+// Nexus Pixel Mobile 0.2.53 — vista táctil independiente de escritorio.
 (() => {
   "use strict";
-  const mq=window.matchMedia("(max-width:760px)");
+  const mq=window.matchMedia("(min-width:0px)");
   const api=window.NexusPixelTouch;
   const viewport=document.getElementById("viewport");
   const dock=document.getElementById("mobileDock");

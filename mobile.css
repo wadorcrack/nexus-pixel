@@ -1,6 +1,6 @@
-/* Nexus Pixel Mobile 0.2.52: ajustes únicamente para pantallas pequeñas. */
+/* Nexus Pixel Mobile 0.2.53: ajustes únicamente para pantallas pequeñas. */
 .mobile-dock,.mobile-zoom-controls,.mobile-backdrop{display:none}
-@media (max-width:760px){
+@media (min-width:0px){
   :root{--mobile-header:52px;--mobile-dock:63px}
   html,body{width:100%;height:100%;margin:0;overflow:hidden;overscroll-behavior:none}
   body{display:flex;flex-direction:column;height:100dvh;min-height:0}
