@@ -245,3 +245,16 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
   z-index:2147483647;
 }
 #nexusFloatingTooltip:not(:popover-open):not(.tooltip-fallback-open){display:none}
+
+/* 0.2.58 — edición isométrica no destructiva */
+.iso-settings{display:grid;gap:8px;margin:5px 0 15px;padding:9px;border:1px solid var(--nx-435065,#435065);border-radius:7px;background:var(--nx-1d2430,#1d2430)}
+.iso-settings[hidden],#isoDiamondTool[hidden]{display:none!important}
+.iso-grid-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.iso-grid-fields label{display:flex;flex-direction:column;gap:4px;min-width:0}
+.iso-grid-fields input[type=number]{width:100%;max-width:100%}
+.iso-grid-fields input[type=color]{width:100%;min-height:33px}
+.iso-grid-fields input[type=range]{width:100%}
+.iso-grid-fields output{font-size:11px}
+.iso-note{margin:0;font-size:11px;color:var(--nx-a4b2c5,#a4b2c5);line-height:1.45}
+.iso-mode-toggle{padding:4px 0}
+.iso-mode-toggle input{accent-color:#0f91b4}

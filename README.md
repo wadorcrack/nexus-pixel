@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.57** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.58** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -153,3 +153,25 @@ Móvil: **Colores → Apariencia → Tema**.
 `mobile.css` conservan como fallback el tema oscuro previo. Las imágenes,
 las capas y las exportaciones no se modifican.
 La PWA precachea ambos nuevos recursos para usarlos sin conexión.
+
+## Modo isométrico (0.2.58)
+
+- En la barra de **Herramientas → Vista**, activa **Modo isométrico**.
+- Muestra una retícula de rombos 2:1 (32 × 16 px por defecto), con ancho,
+  alto, color y opacidad configurables. La retícula es **solo visual**:
+  no se escribe en la imagen, las capas ni las exportaciones.
+- Activa **Ajustar líneas a ejes isométricos** para que la herramienta Línea
+  siga la diagonal izquierda, derecha o la vertical, tomando el ángulo
+  de la retícula actual.
+- Con la herramienta **Rombo isométrico**, arrastra para delinear un rombo
+  o toca una sola vez para crear una baldosa con las dimensiones elegidas.
+- El tamaño siempre se normaliza a números pares para que los vértices
+  cuadren con el píxel real (sin suavizado de la imagen exportada).
+- La cuadrícula guía rectangular se oculta temporalmente cuando el modo
+  isométrico está activo. Al desactivarlo, conserva todos sus valores.
+- Las opciones isométricas se guardan dentro del proyecto JSON (compatible
+  con proyectos anteriores), también se restauran en Deshacer/Rehacer y
+  se reinician al crear un proyecto nuevo.
+- Funciona tanto en `index.html` como en `mobile.html`, mediante el
+  mismo motor y archivo compartido `iso-geometry.js`. No usa librerías
+  externas ni cambia la lógica de zoom táctil.

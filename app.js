@@ -1,10 +1,11 @@
-const NEXUS_LUCIDE_ICONS={'move':'<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><path d="m8 8 8 8m0-8-8 8"/>','pencil': '<path d="m18 2 4 4-14 14-6 2 2-6L18 2Z"/><path d="m14.5 5.5 4 4"/>', 'eraser': '<path d="m7 21-4-4a2 2 0 0 1 0-3l10-10a2 2 0 0 1 3 0l5 5a2 2 0 0 1 0 3l-9 9H7Z"/><path d="m5 12 7 7M12 21h9"/>', 'paint-bucket': '<path d="m3 3 8 8"/><path d="m12 2 9 9-9 9-9-9 9-9Z"/><path d="M2 21h17"/><path d="M20 16c0 1.5 1 2.5 2 3.5-.5.7-1.2 1-2 1s-1.5-.3-2-1c1-1 2-2 2-3.5Z"/>', 'pipette': '<path d="m2 22 1-5L17 3a3 3 0 0 1 4 4L7 21l-5 1Z"/><path d="m14 6 4 4"/>', 'minus': '<path d="M5 12h14"/>', 'square': '<rect x="4" y="4" width="16" height="16" rx="1"/>', 'circle': '<circle cx="12" cy="12" r="9"/>', 'undo-2': '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/>', 'redo-2': '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h2"/>', 'file-plus': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 12v6m-3-3h6"/>', 'save': '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/>', 'folder-open': '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2"/><path d="M3 20a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2l2-8H5l-2 8Z"/>', 'image': '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>', 'film': '<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 8h5m-5 8h5m10-8h5m-5 8h5"/>', 'clapperboard': '<path d="M4 11h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"/><path d="m3 11-1-6 18-3 1 6-18 3Zm5-7 3 6m4-7 3 6"/>', 'play': '<path d="m8 5 12 7-12 7V5Z"/>', 'plus': '<path d="M12 5v14M5 12h14"/>', 'copy': '<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>', 'trash-2': '<path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m5 4v7m4-7v7"/>', 'layers': '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>', 'maximize': '<path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/>', 'download': '<path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/>', 'x': '<path d="M18 6 6 18M6 6l12 12"/>', 'check': '<path d="m5 12 4 4L19 6"/>', 'eye': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>', 'eye-off': '<path d="M3 3l18 18M10.6 5.1A11 11 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-3.2 4.1M6.3 6.5C3.4 8.5 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.3-.9"/>', 'lock': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>', 'lock-open': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/>', 'blend': '<circle cx="9" cy="12" r="8"/><path d="M9 4a8 8 0 0 1 0 16"/><path d="M9 4v16"/>', 'radial': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>', 'refresh-cw': '<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.5 15"/>', 'sparkles': '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Zm7 13 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/>', 'selection-rect': '<rect x="4" y="4" width="16" height="16" rx="1" stroke-dasharray="3 2"/><path d="M9 9h6v6H9z"/>', 'lasso': '<path d="M4 10c0-3 3-6 8-6s8 3 8 6-3 6-8 6c-1.7 0-3.3-.4-4.6-1.1L4 20v-4.3A6.5 6.5 0 0 1 4 10Z" stroke-dasharray="3 2"/><circle cx="12" cy="10" r="1"/>', 'arrow-up': '<path d="M12 19V5m-7 7 7-7 7 7"/>', 'arrow-down': '<path d="M12 5v14m-7-7 7 7 7-7"/>', 'spray-can': '<path d="M6 9h7a2 2 0 0 1 2 2v9H8a2 2 0 0 1-2-2V9Z"/><path d="M9 4h4v3H9zM15 10l4-2"/><path d="M18 5h.01M20 8h.01M17 8h.01M19 11h.01"/>'};
+const NEXUS_LUCIDE_ICONS={'move':'<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><path d="m8 8 8 8m0-8-8 8"/>','pencil': '<path d="m18 2 4 4-14 14-6 2 2-6L18 2Z"/><path d="m14.5 5.5 4 4"/>', 'eraser': '<path d="m7 21-4-4a2 2 0 0 1 0-3l10-10a2 2 0 0 1 3 0l5 5a2 2 0 0 1 0 3l-9 9H7Z"/><path d="m5 12 7 7M12 21h9"/>', 'paint-bucket': '<path d="m3 3 8 8"/><path d="m12 2 9 9-9 9-9-9 9-9Z"/><path d="M2 21h17"/><path d="M20 16c0 1.5 1 2.5 2 3.5-.5.7-1.2 1-2 1s-1.5-.3-2-1c1-1 2-2 2-3.5Z"/>', 'pipette': '<path d="m2 22 1-5L17 3a3 3 0 0 1 4 4L7 21l-5 1Z"/><path d="m14 6 4 4"/>', 'minus': '<path d="M5 12h14"/>', 'square': '<rect x="4" y="4" width="16" height="16" rx="1"/>', 'circle': '<circle cx="12" cy="12" r="9"/>', 'undo-2': '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/>', 'redo-2': '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h2"/>', 'file-plus': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 12v6m-3-3h6"/>', 'save': '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/>', 'folder-open': '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2"/><path d="M3 20a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2l2-8H5l-2 8Z"/>', 'image': '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>', 'film': '<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 8h5m-5 8h5m10-8h5m-5 8h5"/>', 'clapperboard': '<path d="M4 11h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"/><path d="m3 11-1-6 18-3 1 6-18 3Zm5-7 3 6m4-7 3 6"/>', 'play': '<path d="m8 5 12 7-12 7V5Z"/>', 'plus': '<path d="M12 5v14M5 12h14"/>', 'copy': '<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>', 'trash-2': '<path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m5 4v7m4-7v7"/>', 'layers': '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>', 'maximize': '<path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/>', 'download': '<path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/>', 'x': '<path d="M18 6 6 18M6 6l12 12"/>', 'check': '<path d="m5 12 4 4L19 6"/>', 'eye': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>', 'eye-off': '<path d="M3 3l18 18M10.6 5.1A11 11 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-3.2 4.1M6.3 6.5C3.4 8.5 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.3-.9"/>', 'lock': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>', 'lock-open': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/>', 'blend': '<circle cx="9" cy="12" r="8"/><path d="M9 4a8 8 0 0 1 0 16"/><path d="M9 4v16"/>', 'iso-diamond':'<path d="M12 3 22 12 12 21 2 12 12 3Z"/><path d="M2 12h20"/>', 'radial': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>', 'refresh-cw': '<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.5 15"/>', 'sparkles': '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Zm7 13 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/>', 'selection-rect': '<rect x="4" y="4" width="16" height="16" rx="1" stroke-dasharray="3 2"/><path d="M9 9h6v6H9z"/>', 'lasso': '<path d="M4 10c0-3 3-6 8-6s8 3 8 6-3 6-8 6c-1.7 0-3.3-.4-4.6-1.1L4 20v-4.3A6.5 6.5 0 0 1 4 10Z" stroke-dasharray="3 2"/><circle cx="12" cy="10" r="1"/>', 'arrow-up': '<path d="M12 19V5m-7 7 7-7 7 7"/>', 'arrow-down': '<path d="M12 5v14m-7-7 7 7 7-7"/>', 'spray-can': '<path d="M6 9h7a2 2 0 0 1 2 2v9H8a2 2 0 0 1-2-2V9Z"/><path d="M9 4h4v3H9zM15 10l4-2"/><path d="M18 5h.01M20 8h.01M17 8h.01M19 11h.01"/>'};
 function nexusIcon(name){return `<svg class="lucide-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${NEXUS_LUCIDE_ICONS[name]||NEXUS_LUCIDE_ICONS.square}</svg>`}
 
 (()=>{'use strict';
 document.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=nexusIcon(el.dataset.icon)});
 const $=id=>document.getElementById(id), viewport=$('viewport'),canvas=$('canvas'),cx=canvas.getContext('2d',{willReadFrequently:true}),overlay=$('canvasOverlay'),oc=overlay.getContext('2d');
 let animationEnabled=false,guideGridEnabled=false,guideCellWidth=32,guideCellHeight=32,guideGridColor='#5ac8ef',guideGridAlpha=55;
+let isoMode=false,isoGrid=true,isoWidth=32,isoHeight=16,isoColor='#5ac8ef',isoOpacity=55,isoSnap=true;
 let W=32,H=32,zoom=12,color='#38bdf8',colorEnd='#a855f7',alpha=255,alphaEnd=0,tool='pencil',grid=true,mirror=false,selected=0,activeLayer=0,playing=false,timer=null,dragging=false,start=null,last=null,preview=null;
 let gradientStops=[{hex:'#38bdf8',alpha:255},{hex:'#a855f7',alpha:0}],selectedGradientStop=0,radialInvert=false;
 let selectionMask=null,selectionPreview=null,lassoPoints=[],sprayRadius=4,sprayDensity=24;
@@ -240,7 +241,7 @@ $('deleteAnimation').onclick=()=>{
 function rgba(hex,opacity=255){return [parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16),opacity]}
 function frame(){return frames[selected]}
 function layer(){return frame().layers[activeLayer]}
-function copyState(){return {animationTracks:animationTracks.map(t=>({name:t.name,frames:cloneFrames(t.frames)})),layerNames:[...layerNames],layerVisible:[...layerVisible],layerLocked:[...layerLocked],palette:palette.map(s=>({...s})),selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops:gradientStops.map(s=>({...s})),selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,selected,activeLayer,W,H,characterPack:clonePack(characterPack),currentAnimation}}
+function copyState(){return {animationTracks:animationTracks.map(t=>({name:t.name,frames:cloneFrames(t.frames)})),layerNames:[...layerNames],layerVisible:[...layerVisible],layerLocked:[...layerLocked],palette:palette.map(s=>({...s})),selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops:gradientStops.map(s=>({...s})),selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,isoMode,isoGrid,isoWidth,isoHeight,isoColor,isoOpacity,isoSnap,selected,activeLayer,W,H,characterPack:clonePack(characterPack),currentAnimation}}
 const MAX_PROJECT_BYTES=192*1024*1024;
 function projectBytes(w=W,h=H,layerCount=layerNames.length,frameCount=totalFrameCount()){return w*h*4*layerCount*frameCount}
 function ensureProjectSize(w,h,layerCount,frameCount){
@@ -260,6 +261,7 @@ function restore(s){setAnimationTracks(s.animationTracks.map(t=>({name:t.name,fr
  guideCellHeight=Number.isInteger(s.guideCellHeight)?Math.max(1,Math.min(2000,s.guideCellHeight)):32;
  guideGridColor=/^#[0-9a-f]{6}$/i.test(s.guideGridColor||'')?s.guideGridColor:'#5ac8ef';
  guideGridAlpha=Number.isFinite(s.guideGridAlpha)?Math.max(5,Math.min(100,s.guideGridAlpha)):55;
+ loadIsometricSettings(s);
  loadGuideControls();setAnimationEnabled(s.animationEnabled===true);
  resetSelection();updateAnimationUI();$('width').value=W;$('height').value=H;const dimensionLabel=$('canvasDimensions');if(dimensionLabel)dimensionLabel.textContent=`${W} × ${H} px`;refresh()}
 function compose(f){const visible=f.layers.filter((_,i)=>layerVisible[i]!==false);if(visible.length===1)return visible[0];const out=new Uint8ClampedArray(W*H*4);for(const l of visible){for(let i=0;i<out.length;i+=4){const a=l[i+3]/255;if(!a)continue;const b=out[i+3]/255,oa=a+b*(1-a);for(let c=0;c<3;c++)out[i+c]=Math.round((l[i+c]*a+out[i+c]*b*(1-a))/oa);out[i+3]=Math.round(oa*255)}}return out}
@@ -309,7 +311,7 @@ function drawOverlay(){
  }
  // Cuadrícula de división independiente del píxel y de las exportaciones.
  // Dibujar solo las líneas visibles mantiene el coste bajo con lienzos de 2000 px.
- if(guideGridEnabled){
+ if(guideGridEnabled&&!isoMode){
   const sx=guideCellWidth*z,sy=guideCellHeight*z;
   oc.save();oc.strokeStyle=`rgba(${parseInt(guideGridColor.slice(1,3),16)},${parseInt(guideGridColor.slice(3,5),16)},${parseInt(guideGridColor.slice(5,7),16)},${guideGridAlpha/100})`;
   oc.lineWidth=1;oc.beginPath();
@@ -324,6 +326,20 @@ function drawOverlay(){
    for(let y=Math.max(0,Math.ceil(bounds.y0/guideCellHeight)*guideCellHeight);y<=endY;y+=guideCellHeight){
     const yp=Math.round(y*z)+.5;oc.moveTo(0,yp);oc.lineTo(W*z,yp);
    }
+  }
+  oc.stroke();oc.restore();
+ }
+ if(isoMode&&isoGrid){
+  const segments=NexusPixelIso.gridSegments(
+    {x0:bounds.x0,y0:bounds.y0,x1:Math.min(W,bounds.x1+1),y1:Math.min(H,bounds.y1+1)},
+    isoWidth,isoHeight,z);
+  oc.save();
+  oc.strokeStyle=`rgba(${parseInt(isoColor.slice(1,3),16)},${parseInt(isoColor.slice(3,5),16)},${parseInt(isoColor.slice(5,7),16)},${isoOpacity/100})`;
+  oc.lineWidth=1;
+  oc.beginPath();
+  for(const line of segments){
+    oc.moveTo(line.x0*z,line.y0*z);
+    oc.lineTo(line.x1*z,line.y1*z);
   }
   oc.stroke();oc.restore();
  }
@@ -452,6 +468,10 @@ function put(x,y,erase=false){const dst=layer(),col=paintColor();brushStamp(x,y,
 function line(x0,y0,x1,y1,cb){let dx=Math.abs(x1-x0),dy=Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1,e=dx-dy;while(true){cb(x0,y0);if(x0===x1&&y0===y1)break;const a=2*e;if(a>-dy){e-=dy;x0+=sx}if(a<dx){e+=dx;y0+=sy}}}
 // Shift: mantener la misma anchura y altura desde el punto inicial.
 // El límite de cada eje evita dibujar un círculo/cuadrado cortado por el borde.
+function snapIsometricLine(p){
+ if(!isoMode||!isoSnap||tool!=='line'||!start)return p;
+ return NexusPixelIso.snapLine(start,p,isoWidth,isoHeight,W,H);
+}
 function squareShapeEnd(p,shiftHeld){
  if(!shiftHeld||!start||(tool!=='rect'&&tool!=='ellipse'))return p;
  const dx=p.x-start.x,dy=p.y-start.y;
@@ -470,7 +490,7 @@ function renderShapePreview(p,shiftHeld){
  preview=new Uint8ClampedArray(compose(frame()));
  layer().set(saved);draw();preview=null;
 }
-function shape(x0,y0,x1,y1,kind){const col=paintColor(),visited=new Uint8Array(W*H),set=(x,y)=>brushStamp(x,y,(px,py)=>{const stamp=(xx)=>{if(xx<0||xx>=W||py<0||py>=H||!inSelection(xx,py))return;const i=py*W+xx;if(visited[i])return;visited[i]=1;blendPixel(layer(),xx,py,col)};stamp(px);if(mirror)stamp(W-1-px)});if(kind==='line')line(x0,y0,x1,y1,set);if(kind==='rect'){line(x0,y0,x1,y0,set);line(x1,y0,x1,y1,set);line(x1,y1,x0,y1,set);line(x0,y1,x0,y0,set)}if(kind==='ellipse'){let a=Math.min(x0,x1),b=Math.max(x0,x1),c=Math.min(y0,y1),d=Math.max(y0,y1),rx=Math.max((b-a)/2,.01),ry=Math.max((d-c)/2,.01),mx=(a+b)/2,my=(c+d)/2;let prev=null;for(let k=0;k<=Math.max(32,Math.ceil(2*Math.PI*Math.max(rx,ry)*3));k++){let t=k/Math.max(32,Math.ceil(2*Math.PI*Math.max(rx,ry)*3))*Math.PI*2,p=[Math.round(mx+rx*Math.cos(t)),Math.round(my+ry*Math.sin(t))];if(prev)line(prev[0],prev[1],p[0],p[1],set);else set(...p);prev=p}}}
+function shape(x0,y0,x1,y1,kind){const col=paintColor(),visited=new Uint8Array(W*H),set=(x,y)=>brushStamp(x,y,(px,py)=>{const stamp=(xx)=>{if(xx<0||xx>=W||py<0||py>=H||!inSelection(xx,py))return;const i=py*W+xx;if(visited[i])return;visited[i]=1;blendPixel(layer(),xx,py,col)};stamp(px);if(mirror)stamp(W-1-px)});if(kind==='line')line(x0,y0,x1,y1,set);if(kind==='iso-diamond'){const pts=NexusPixelIso.diamond({x:x0,y:y0},{x:x1,y:y1},isoWidth,isoHeight,W,H);for(let i=0;i<4;i++){const a=pts[i],b=pts[(i+1)%4];line(a.x,a.y,b.x,b.y,set)}}if(kind==='rect'){line(x0,y0,x1,y0,set);line(x1,y0,x1,y1,set);line(x1,y1,x0,y1,set);line(x0,y1,x0,y0,set)}if(kind==='ellipse'){let a=Math.min(x0,x1),b=Math.max(x0,x1),c=Math.min(y0,y1),d=Math.max(y0,y1),rx=Math.max((b-a)/2,.01),ry=Math.max((d-c)/2,.01),mx=(a+b)/2,my=(c+d)/2;let prev=null;for(let k=0;k<=Math.max(32,Math.ceil(2*Math.PI*Math.max(rx,ry)*3));k++){let t=k/Math.max(32,Math.ceil(2*Math.PI*Math.max(rx,ry)*3))*Math.PI*2,p=[Math.round(mx+rx*Math.cos(t)),Math.round(my+ry*Math.sin(t))];if(prev)line(prev[0],prev[1],p[0],p[1],set);else set(...p);prev=p}}}
 function fill(x,y){if(!inSelection(x,y))return;const data=layer(),p=(y*W+x)*4,src=Array.from(data.subarray(p,p+4)),dst=paintColor();if(src.every((v,i)=>v===dst[i]))return;const st=[y*W+x],seen=new Uint8Array(W*H);while(st.length){const n=st.pop();if(seen[n])continue;seen[n]=1;const px=n%W,py=(n/W)|0;if(!inSelection(px,py))continue;const ix=n*4;if(!src.every((v,i)=>v===data[ix+i]))continue;data.set(dst,ix);if(px>0)st.push(n-1);if(px+1<W)st.push(n+1);if(py>0)st.push(n-W);if(py+1<H)st.push(n+W)}}
 function gradientRGBAAt(t){
  t=Math.max(0,Math.min(1,t));
@@ -517,8 +537,8 @@ canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button
  moveOrigin=p;dragging=true;start=last=p;canvas.setPointerCapture(e.pointerId);
  return;
  }if(tool==='picker'){const d=compose(frame()),i=(p.y*W+p.x)*4;if(d[i+3]){selectColor('#'+Array.from(d.slice(i,i+3)).map(n=>n.toString(16).padStart(2,'0')).join(''));setAlpha(d[i+3])}return}if(tool==='select-magic'){if(e.button===2)return;selectionMask=buildMagicMask(layer(),p.x,p.y);selectionPreview=null;syncSelectionControls();draw();msg('Selección mágica: '+selectionCount(selectionMask)+' px');return}if(tool==='select-rect'){if(e.button===2)return;dragging=true;start=last=p;selectionPreview={type:'rect',x0:p.x,y0:p.y,x1:p.x,y1:p.y};canvas.setPointerCapture(e.pointerId);draw();return}if(tool==='select-lasso'){if(e.button===2)return;dragging=true;start=last=p;lassoPoints=[p];selectionPreview={type:'lasso',points:[...lassoPoints]};canvas.setPointerCapture(e.pointerId);draw();return}if(shouldRandomizeColor(tool)){const side=strokeSide,val=sideValues(side);assignSide(side,randomHexColor(),val.alpha,-1)}if(layerLocked[activeLayer]){msg('Capa bloqueada: desbloquéala para editar');return}if(layerVisible[activeLayer]===false){msg('Capa oculta: muéstrala para editar');return}snapshot();dragging=true;canvas.setPointerCapture(e.pointerId);start=last=p;lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='pencil'||tool==='spray')beginPaintStroke();else endPaintStroke();if(tool==='fill'){fill(p.x,p.y);dragging=false;endPaintStroke();refresh()}else if(tool==='pencil'||tool==='eraser'){put(p.x,p.y,tool==='eraser');draw()}else if(tool==='spray'){sprayAt(p.x,p.y);draw()}};
-canvas.onpointermove=e=>{if(pastePlacement&&!panPointer){const p=position(e);pastePlacement.x=p.x;pastePlacement.y=p.y;draw();return}if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);return}if(tool==='select-rect'){selectionPreview={type:'rect',x0:start.x,y0:start.y,x1:p.x,y1:p.y};draw();return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));last=p;selectionPreview={type:'lasso',points:[...lassoPoints]};draw();return}if(tool==='spray'){sprayAt(p.x,p.y);last=p;draw();return}if(tool==='pencil'||tool==='eraser'){line(last.x,last.y,p.x,p.y,(x,y)=>put(x,y,tool==='eraser'));last=p;draw()}else{lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='rect'||tool==='ellipse'){renderShapePreview(p,shapeShiftHeld)}else{const save=new Uint8ClampedArray(layer());if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else shape(start.x,start.y,p.x,p.y,tool);preview=new Uint8ClampedArray(compose(frame()));layer().set(save);draw();preview=null}}};
-canvas.onpointerup=e=>{if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);endMove(true);msg('Dibujo movido');return}if(tool==='select-rect'){selectionMask=buildRectMask(start.x,start.y,p.x,p.y);selectionPreview=null;dragging=false;syncSelectionControls();draw();msg('Selección rectangular: '+selectionCount(selectionMask)+' px');return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));selectionMask=buildPolygonMask(lassoPoints);selectionPreview=null;dragging=false;syncSelectionControls();draw();msg('Selección libre: '+selectionCount(selectionMask)+' px');return}if(tool==='spray'){dragging=false;endPaintStroke();preview=null;refresh();return}if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else if(['line','rect','ellipse'].includes(tool)){const end=squareShapeEnd(p,!!e.shiftKey||shapeShiftHeld);shape(start.x,start.y,end.x,end.y,tool)}dragging=false;lastShapePointer=null;shapeShiftHeld=false;endPaintStroke();preview=null;refresh()};
+canvas.onpointermove=e=>{if(pastePlacement&&!panPointer){const p=position(e);pastePlacement.x=p.x;pastePlacement.y=p.y;draw();return}if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);return}if(tool==='select-rect'){selectionPreview={type:'rect',x0:start.x,y0:start.y,x1:p.x,y1:p.y};draw();return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));last=p;selectionPreview={type:'lasso',points:[...lassoPoints]};draw();return}if(tool==='spray'){sprayAt(p.x,p.y);last=p;draw();return}if(tool==='pencil'||tool==='eraser'){line(last.x,last.y,p.x,p.y,(x,y)=>put(x,y,tool==='eraser'));last=p;draw()}else{lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='rect'||tool==='ellipse'||tool==='iso-diamond'){renderShapePreview(p,shapeShiftHeld)}else{const save=new Uint8ClampedArray(layer());if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else{const end=snapIsometricLine(p);shape(start.x,start.y,end.x,end.y,tool)}preview=new Uint8ClampedArray(compose(frame()));layer().set(save);draw();preview=null}}};
+canvas.onpointerup=e=>{if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);endMove(true);msg('Dibujo movido');return}if(tool==='select-rect'){selectionMask=buildRectMask(start.x,start.y,p.x,p.y);selectionPreview=null;dragging=false;syncSelectionControls();draw();msg('Selección rectangular: '+selectionCount(selectionMask)+' px');return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));selectionMask=buildPolygonMask(lassoPoints);selectionPreview=null;dragging=false;syncSelectionControls();draw();msg('Selección libre: '+selectionCount(selectionMask)+' px');return}if(tool==='spray'){dragging=false;endPaintStroke();preview=null;refresh();return}if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else if(['line','rect','ellipse','iso-diamond'].includes(tool)){const end=tool==='line'?snapIsometricLine(p):squareShapeEnd(p,!!e.shiftKey||shapeShiftHeld);shape(start.x,start.y,end.x,end.y,tool)}dragging=false;lastShapePointer=null;shapeShiftHeld=false;endPaintStroke();preview=null;refresh()};
 canvas.onpointercancel=()=>{if(moveOrigin){endMove(false);return}dragging=false;lastShapePointer=null;shapeShiftHeld=false;endPaintStroke();preview=null;selectionPreview=null;refresh()};
 function normalizeSwatch(v){
  if(typeof v==='string')v={hex:v,alpha:255};
@@ -614,7 +634,7 @@ $('sprayRadius').oninput=e=>{sprayRadius=Number(e.target.value);$('sprayRadiusVa
 $('sprayDensity').oninput=e=>{sprayDensity=Number(e.target.value);$('sprayDensityValue').textContent=sprayDensity};
 function isGradientTool(t){return t==='gradient-linear'||t==='gradient-radial'}
 function syncToolPanels(){const showGradient=isGradientTool(tool),showSpray=tool==='spray';$('gradientSection').hidden=!showGradient;$('colorSection').hidden=showGradient;$('sprayControls').hidden=!showSpray;syncSelectionControls();if(showGradient)$('colorPopup').hidden=true}
-function selectTool(t){tool=t;canvas.classList.toggle('move-tool',t==='move');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));syncToolPanels()}
+function selectTool(t){if(t==='iso-diamond'&&!isoMode)return;tool=t;canvas.classList.toggle('move-tool',t==='move');document.querySelectorAll('[data-tool]').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));syncToolPanels()}
 document.querySelectorAll('[data-tool]').forEach(b=>b.onclick=()=>selectTool(b.dataset.tool));
 new ResizeObserver(()=>{if(zoom===0){panX=0;panY=0;applyPan()}draw()}).observe(viewport);
 $('zoom').oninput=e=>setZoom(Number(e.target.value));$('grid').onchange=e=>{grid=e.target.checked;draw()};$('mirror').onchange=e=>mirror=e.target.checked;
@@ -637,6 +657,40 @@ function setAnimationEnabled(next){
  requestAnimationFrame(()=>{if(zoom===0){panX=0;panY=0;applyPan()}draw();if(animationEnabled)drawFrames()});
 }
 $('toggleAnimation').onclick=()=>setAnimationEnabled(!animationEnabled);
+function loadIsometricSettings(state){
+ if(state){
+  isoMode=state.isoMode===true;
+  isoGrid=state.isoGrid!==false;
+  isoWidth=NexusPixelIso.step(state.isoWidth,32);
+  isoHeight=NexusPixelIso.step(state.isoHeight,16);
+  isoColor=/^#[0-9a-f]{6}$/i.test(state.isoColor||'')?state.isoColor:'#5ac8ef';
+  isoOpacity=Number.isFinite(state.isoOpacity)?Math.max(5,Math.min(100,state.isoOpacity)):55;
+  isoSnap=state.isoSnap!==false;
+ }
+ $('isoMode').checked=isoMode;
+ $('isoSettings').hidden=!isoMode;
+ $('isoGrid').checked=isoGrid;
+ $('isoWidth').value=isoWidth;$('isoHeight').value=isoHeight;
+ $('isoColor').value=isoColor;$('isoOpacity').value=isoOpacity;
+ $('isoOpacityValue').textContent=isoOpacity+'%';
+ $('isoSnap').checked=isoSnap;
+ $('isoDiamondTool').hidden=!isoMode;
+ if(!isoMode&&tool==='iso-diamond')selectTool('pencil');
+ drawOverlay();
+}
+function applyIsometricSettings(){
+ isoMode=$('isoMode').checked;
+ isoGrid=$('isoGrid').checked;
+ isoWidth=NexusPixelIso.step($('isoWidth').value,32);
+ isoHeight=NexusPixelIso.step($('isoHeight').value,16);
+ isoColor=$('isoColor').value;
+ isoOpacity=Math.max(5,Math.min(100,Number($('isoOpacity').value)||55));
+ isoSnap=$('isoSnap').checked;
+ loadIsometricSettings();
+}
+for(const id of ['isoMode','isoGrid','isoWidth','isoHeight','isoColor','isoOpacity','isoSnap']){
+ $(id).addEventListener(id==='isoWidth'||id==='isoHeight'?'change':'input',applyIsometricSettings);
+}
 function applyGuideControls(){
  guideGridEnabled=$('guideGrid').checked;
  $('guideGrid').closest('.line').nextElementSibling.hidden=!guideGridEnabled;
@@ -660,6 +714,7 @@ for(const id of ['guideGrid','guideWidth','guideHeight','guideColor','guideOpaci
 }
 setAnimationEnabled(false);
 loadGuideControls();
+loadIsometricSettings();
 function togglePlay(){playing=!playing;$('play').innerHTML=nexusIcon(playing?'square':'play');$('play').dataset.tooltip=playing?'Detener animación':'Reproducir animación';$('play').setAttribute('aria-label',$('play').dataset.tooltip);clearTimeout(timer);if(playing)tick()}
 $('play').onclick=togglePlay;
 $('addLayer').onclick=()=>{try{ensureProjectSize(W,H,layerNames.length+1,frames.length)}catch(e){msg(e.message);return}snapshot();layerNames.push('Capa '+(layerNames.length+1));layerVisible.push(true);layerLocked.push(false);animationTracks.forEach(t=>t.frames.forEach(f=>f.layers.push(blank())));activeLayer=layerNames.length-1;refresh()};
@@ -993,7 +1048,7 @@ $('closeExport').onclick=()=>exportDialog.close();
 $('sheetExportBack').onclick=()=>setSheetExportView(false);
 // No cerrar una exportación configurada por un clic sobre el fondo.
 exportDialog.addEventListener('cancel',e=>e.preventDefault());
-$('new').onclick=()=>{if(!confirm('¿Crear proyecto nuevo? Se perderán los cambios no guardados.'))return;W=32;H=32;characterPack=null;setAnimationTracks([{name:'Animación 1',frames:[{duration:150,layers:[new Uint8ClampedArray(32*32*4)]}]}],'Animación 1');setAnimationEnabled(false);guideGridEnabled=false;guideCellWidth=32;guideCellHeight=32;guideGridColor='#5ac8ef';guideGridAlpha=55;randomColorEnabled=false;$('randomColor').checked=false;loadGuideControls();updateAnimationUI();layerNames=['Capa 1'];layerVisible=[true];layerLocked=[false];selected=activeLayer=0;undo=[];redo=[];resetSelection();$('width').value=W;$('height').value=H;const dimensionLabel=$('canvasDimensions');if(dimensionLabel)dimensionLabel.textContent=`${W} × ${H} px`;setZoom(12);refresh()};
+$('new').onclick=()=>{if(!confirm('¿Crear proyecto nuevo? Se perderán los cambios no guardados.'))return;W=32;H=32;characterPack=null;setAnimationTracks([{name:'Animación 1',frames:[{duration:150,layers:[new Uint8ClampedArray(32*32*4)]}]}],'Animación 1');setAnimationEnabled(false);guideGridEnabled=false;guideCellWidth=32;guideCellHeight=32;guideGridColor='#5ac8ef';guideGridAlpha=55;isoMode=false;isoGrid=true;isoWidth=32;isoHeight=16;isoColor='#5ac8ef';isoOpacity=55;isoSnap=true;loadIsometricSettings();randomColorEnabled=false;$('randomColor').checked=false;loadGuideControls();updateAnimationUI();layerNames=['Capa 1'];layerVisible=[true];layerLocked=[false];selected=activeLayer=0;undo=[];redo=[];resetSelection();$('width').value=W;$('height').value=H;const dimensionLabel=$('canvasDimensions');if(dimensionLabel)dimensionLabel.textContent=`${W} × ${H} px`;setZoom(12);refresh()};
 function exportFilename(extension){
  const input=$('exportFileName');
  const raw=input.value.trim().replace(/\.(?:png|gif)$/i,'');
@@ -1085,7 +1140,7 @@ function validPixelEncoding(obj,size){return (Array.isArray(obj)&&obj.length===s
 $('saveProject').onclick=()=>{
  try{
   const serialize=fs=>fs.map(f=>({duration:f.duration,layers:f.layers.map(encodePixelArray)}));
-  const obj={version:3,width:W,height:H,layerNames,layerVisible,layerLocked,palette,selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops,selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,animations:animationTracks.map(t=>({name:t.name,frames:serialize(t.frames)})),characterPack:characterPack?{colors:characterPack.colors}:null,currentAnimation};
+  const obj={version:3,width:W,height:H,layerNames,layerVisible,layerLocked,palette,selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops,selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,isoMode,isoGrid,isoWidth,isoHeight,isoColor,isoOpacity,isoSnap,animations:animationTracks.map(t=>({name:t.name,frames:serialize(t.frames)})),characterPack:characterPack?{colors:characterPack.colors}:null,currentAnimation};
   download(JSON.stringify(obj),'nexus-pixel-project.json','application/json');msg('Proyecto guardado: '+animationTracks.length+' animaciones');
  }catch(err){alert('No se pudo guardar el proyecto: '+err.message)}
 };
@@ -1129,6 +1184,7 @@ $('projectFile').onchange=async e=>{
   guideCellHeight=Number.isInteger(v.guideCellHeight)?Math.max(1,Math.min(2000,v.guideCellHeight)):32;
   guideGridColor=/^#[0-9a-f]{6}$/i.test(v.guideGridColor||'')?v.guideGridColor:'#5ac8ef';
   guideGridAlpha=Number.isFinite(v.guideGridAlpha)?Math.max(5,Math.min(100,v.guideGridAlpha)):55;
+  loadIsometricSettings(v);
   loadGuideControls();setAnimationEnabled(v.animationEnabled===true);
   updateAnimationUI();resetSelection();if(W>256||H>256)setZoom(0);
   $('width').value=W;$('height').value=H;$('canvasDimensions').textContent=`${W} × ${H} px`;
