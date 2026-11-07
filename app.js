@@ -10,7 +10,7 @@ let gradientStops=[{hex:'#38bdf8',alpha:255},{hex:'#a855f7',alpha:0}],selectedGr
 let selectionMask=null,selectionPreview=null,lassoPoints=[],sprayRadius=4,sprayDensity=24;
 let pixelClipboard=null,pastePlacement=null;
 let moveOrigin=null,moveSource=null,moveLayers=[];
-let panX=0,panY=0,panPointer=null;
+let panX=0,panY=0,panPointer=null,mobilePanEnabled=false,mobilePaintSide='left';
 function actualZoom(mode=zoom){
  if(mode!==0)return Math.max(0.05,mode);
  return Math.max(0.01,Math.min(24,(Math.max(60,viewport.clientWidth)-28)/W,(Math.max(60,viewport.clientHeight)-28)/H));
@@ -506,7 +506,7 @@ function applyGradient(x0,y0,x1,y1,kind){
 }
 function sprayAt(cx0,cy0){const dst=layer();const col=paintColor();for(let i=0;i<sprayDensity;i++){const ang=Math.random()*Math.PI*2;const dist=Math.sqrt(Math.random())*sprayRadius;const x=Math.round(cx0+Math.cos(ang)*dist),y=Math.round(cy0+Math.sin(ang)*dist);strokeBlendPixel(dst,x,y,col);if(mirror)strokeBlendPixel(dst,W-1-x,y,col)}}
 function position(e){const b=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(W-1,Math.floor((e.clientX-b.left)/b.width*W))),y:Math.max(0,Math.min(H-1,Math.floor((e.clientY-b.top)/b.height*H)))}}
-canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button!==0&&e.button!==2)||panPointer)return;if(pastePlacement){if(e.button===0)commitPaste();return}strokeSide=e.button===2?'right':'left';if(playing)togglePlay();const p=position(e);if(tool==='move'){
+canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button!==0&&e.button!==2)||panPointer||(e.pointerType==='touch'&&mobilePanEnabled))return;if(pastePlacement){if(e.button===0)commitPaste();return}strokeSide=e.pointerType==='touch'?mobilePaintSide:(e.button===2?'right':'left');if(playing)togglePlay();const p=position(e);if(tool==='move'){
  if(e.button!==0)return;
  const targets=frame().layers.map((_,i)=>i).filter(i=>layerVisible[i]!==false);
  if(!targets.length){msg('No hay capas visibles para mover');return}
@@ -1156,4 +1156,15 @@ document.addEventListener('keyup',e=>{
  }
 });
 document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;if((e.ctrlKey||e.metaKey)&&!e.altKey){const k=e.key.toLowerCase();if(k==='c'||k==='x'||k==='v'){e.preventDefault();if(k==='v')startPaste();else copySelectedPixels(k==='x');return}}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();$('redo').click();return}if(e.key==='['){setBrushSize(brushSize-1);return}if(e.key===']'){setBrushSize(brushSize+1);return}if(e.key==='Escape'){if(moveOrigin){endMove(false);msg('Movimiento cancelado');return}if(!$('colorPopup').hidden){$('colorPopup').hidden=true;return}if(pastePlacement){pastePlacement=null;draw();msg('Pegado cancelado')}else{resetSelection();draw();msg('Selección quitada')}return}const keys={b:'pencil',e:'eraser',g:'fill',i:'picker',l:'line',r:'rect',o:'ellipse',s:'spray',m:'select-rect',n:'select-lasso',w:'select-magic',v:'move'};if(e.key.toLowerCase()==='x'){const left={hex:color,alpha},right={hex:colorEnd,alpha:alphaEnd};const i=selectedSwatch;assignSide('left',right.hex,right.alpha,selectedSwatchRight);assignSide('right',left.hex,left.alpha,i);return}if(keys[e.key.toLowerCase()])selectTool(keys[e.key.toLowerCase()])});refresh();
+// Interface for the independent mobile controller. All mutations stay inside the editor.
+window.NexusPixelTouch={
+ setPaintSide(side){mobilePaintSide=side==='right'?'right':'left'},
+ getPaintSide(){return mobilePaintSide},
+ setPanEnabled(on){mobilePanEnabled=!!on},
+ isPanEnabled(){return mobilePanEnabled},
+ panBy(dx,dy){panX+=dx;panY+=dy;applyPan()},
+ zoomAt(next,x,y){setZoom(next,x,y)},
+ getZoom(){return actualZoom()},
+ fit(){setZoom(0)}
+};
 })();
