@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.48** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.49** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -47,3 +47,10 @@ Después de la primera visita con Internet, el editor puede abrirse sin conexió
 **Importante:** el modo sin conexión guarda la aplicación, **no los dibujos**.
 Los usuarios deben guardar sus proyectos JSON y exportaciones mediante las opciones del editor.
 Para desplegar nuevas versiones, actualiza la versión de caché en `sw.js`.
+
+## Capas y selección (v0.2.49)
+
+- Reordena las capas mediante el asa ⠿ o los botones de subir y bajar.
+- Se reordenan los píxeles de **todos los fotogramas de todas las animaciones**, y también la visibilidad y el bloqueo.
+- El orden se conserva en el proyecto JSON. Las operaciones se pueden deshacer con Ctrl+Z según el límite de memoria del historial.
+- Con una selección rectangular, libre o mágica activa, pulsa **Invertir selección** para alternar entre la zona elegida y el resto del lienzo.

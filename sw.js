@@ -1,6 +1,6 @@
-// Nexus Pixel - archivos offline de la version 0.2.48.
+// Nexus Pixel - archivos offline de la version 0.2.49.
 // Actualizar CACHE_NAME en cada despliegue que modifique la aplicación.
-const CACHE_NAME = "nexus-pixel-v0.2.48";
+const CACHE_NAME = "nexus-pixel-v0.2.49";
 const ASSETS = [
   "./", "./index.html", "./style.css", "./app.js", "./pwa.js",
   "./manifest.webmanifest", "./icons/icon-192.png", "./icons/icon-512.png"

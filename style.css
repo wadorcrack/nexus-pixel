@@ -208,3 +208,15 @@ header #toggleAnimation[aria-pressed="true"]{background:#164e65;border-color:#48
 .animation-track .frame:focus-visible{outline:2px solid #58d7f3;outline-offset:2px}
 .sheet-export-summary{white-space:pre-line}
 @media(max-width:760px){.animation-track-info{min-width:95px;max-width:110px}}
+
+/* 0.2.49 — inversión de selección y orden de capas */
+.selection-controls[hidden]{display:none!important}
+.selection-controls{margin-top:7px}
+.selection-invert{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:30px;font-size:11px;padding:5px 8px}
+.selection-invert svg{width:14px;height:14px}
+.selection-invert:disabled{opacity:.45;cursor:not-allowed}
+.layer .layer-grip{display:flex;align-items:center;justify-content:center;flex:none;width:13px;height:22px;color:#92a9bd;cursor:grab;user-select:none;font-size:17px}
+.layer .layer-grip:active{cursor:grabbing}
+.layer.layer-dragging{opacity:.5}
+.layer.layer-drop-target{outline:2px dashed #58d7f3;outline-offset:1px}
+.right .layer .layer-action:disabled{opacity:.22;cursor:default}
