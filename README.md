@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.56** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.57** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -137,3 +137,19 @@ actuales de GitHub Pages y los cachea; sin Internet recurre a los archivos
 guardados, incluida la interfaz móvil. El nuevo archivo `dialog-guard.js`
 queda precacheado. Esta mejora evita que futuras versiones queden atrapadas
 en la caché anterior.
+
+## Tema de la interfaz (0.2.57)
+
+**Automático** sigue el tema del sistema y responde a cambios en directo.
+**Oscuro** mantiene los colores originales. **Claro** usa una paleta legible.
+La preferencia persiste en `localStorage`, clave `nexus-pixel-theme`, compartida
+entre el editor PC y el móvil.
+
+PC: selector **Tema** en la cabecera.
+Móvil: **Colores → Apariencia → Tema**.
+
+`theme.js` aplica el tema antes de cargar los estilos para evitar parpadeos;
+`theme.css` define la paleta clara. Las variables de `style.css` y
+`mobile.css` conservan como fallback el tema oscuro previo. Las imágenes,
+las capas y las exportaciones no se modifican.
+La PWA precachea ambos nuevos recursos para usarlos sin conexión.
