@@ -2,7 +2,7 @@
 // cuando se hace clic fuera, se pulsa Esc o se intenta cerrarlos accidentalmente.
 (() => {
   "use strict";
-  for (const id of ["resizeDialog", "importDialog", "exportDialog"]) {
+  for (const id of ["resizeDialog", "importDialog", "exportDialog", "paletteLibraryDialog"]) {
     const dialog = document.getElementById(id);
     if (!dialog) continue;
 

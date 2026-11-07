@@ -273,3 +273,62 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 #paletteLibraryCount{font-size:10px;color:var(--nx-9aafc6,#9aafc6)}
 .palette .swatch.is-primary{outline:2px solid var(--nx-61d9ef,#61d9ef);outline-offset:1px}
 .palette .swatch.is-secondary{box-shadow:inset 0 0 0 2px var(--nx-ffba65,#ffba65)}
+
+/* 0.2.62 — biblioteca de paletas en una ventana de tarjetas */
+.palette-library-launcher{display:flex;align-items:center;gap:10px;width:100%;
+ margin:8px 0 12px;padding:10px;border:1px solid var(--nx-435065,#435065);
+ border-radius:8px;background:var(--nx-1d2430,#1d2430);color:var(--nx-e7edf8,#e7edf8);
+ text-align:left;cursor:pointer}
+.palette-library-launcher>svg{width:21px;height:21px;color:var(--nx-5ddcf5,#5ddcf5)}
+.palette-library-launcher-label{display:grid;gap:2px;min-width:0;flex:1}
+.palette-library-launcher-label strong{font-size:12px}
+.palette-library-launcher-label small{font-size:11px;color:var(--nx-a4b2c5,#a4b2c5);
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.palette-library-launcher-arrow{font-size:21px;line-height:1}
+.palette-library-launcher:hover{border-color:var(--nx-5ddcf5,#5ddcf5)}
+.palette-library-dialog{width:min(720px,calc(100vw - 24px));max-width:calc(100vw - 24px);
+ max-height:calc(100dvh - 28px);padding:17px;overflow:hidden;
+ border:1px solid var(--nx-536279,#536279);border-radius:13px;
+ background:var(--nx-1d2430,#1d2430);color:var(--nx-e7edf8,#e7edf8);
+ box-shadow:0 20px 75px var(--nx-000b,#000b)}
+.palette-library-dialog[open]{display:flex;flex-direction:column;gap:12px}
+.palette-library-dialog::backdrop{background:rgba(0,0,0,.72)}
+.palette-library-head{flex:none;align-items:flex-start}
+.palette-library-head h2{font-size:18px}
+.palette-library-head p{font-size:12px;color:var(--nx-a4b2c5,#a4b2c5);margin:5px 0 0;line-height:1.4}
+.palette-library-head button{min-width:35px;min-height:35px}
+.palette-library-toolbar{display:flex;flex-wrap:wrap;gap:5px;flex:none}
+.palette-library-toolbar button{display:inline-flex;align-items:center;gap:5px;
+ padding:7px 9px;font-size:11px;min-height:34px}
+.palette-library-toolbar .lucide-icon{height:14px;width:14px}
+.palette-library-list-header{display:flex;justify-content:space-between;align-items:center;
+ gap:10px;flex:none;font-size:12px}
+.palette-library-list-header small{color:var(--nx-9aafc6,#9aafc6)}
+.palette-library-cards{overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
+ min-height:110px;padding:2px 4px 4px 1px;display:grid;gap:10px;align-content:start}
+.palette-library-card{padding:12px;border:1px solid var(--nx-435065,#435065);
+ border-radius:9px;background:var(--nx-141e2b,#141e2b)}
+.palette-library-card.is-active{border-color:var(--nx-5ddcf5,#5ddcf5);
+ box-shadow:inset 3px 0 0 var(--nx-5ddcf5,#5ddcf5)}
+.palette-library-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.palette-library-card-head h3{margin:0;font-size:14px;font-weight:650;overflow-wrap:anywhere}
+.palette-library-status{font-size:11px;color:var(--nx-9aafc6,#9aafc6)}
+.palette-library-card.is-active .palette-library-status{color:var(--nx-5ddcf5,#5ddcf5);font-weight:650}
+.palette-library-card-count{display:block;font-size:11px;color:var(--nx-a4b2c5,#a4b2c5);margin:4px 0 9px}
+.palette-library-card-colors{display:flex;align-items:center;flex-wrap:wrap;gap:4px;min-height:24px}
+.palette-library-color{display:inline-block;flex:none;width:21px;height:21px;
+ border:1px solid var(--nx-7a8492,#7a8492);border-radius:3px}
+.palette-library-empty{color:var(--nx-9aafc6,#9aafc6);font-size:11px}
+.palette-library-expand{font-size:10px;min-height:24px;padding:3px 6px}
+.palette-library-card-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.palette-library-card-actions button{font-size:11px;min-height:30px;padding:5px 11px}
+.palette-library-card-actions .palette-library-activate:not(:disabled){border-color:var(--nx-5ddcf5,#5ddcf5)}
+.palette-library-card-actions .palette-library-activate:disabled{opacity:1;color:var(--nx-5ddcf5,#5ddcf5);cursor:default}
+@media(max-width:520px){
+ .palette-library-dialog{padding:12px}
+ .palette-library-dialog[open]{gap:9px}
+ .palette-library-head h2{font-size:17px}
+ .palette-library-toolbar button{flex:1 1 auto;min-height:35px;padding:7px}
+ .palette-library-card{padding:10px}
+ .palette-library-color{width:20px;height:20px}
+}

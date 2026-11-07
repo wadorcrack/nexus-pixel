@@ -579,15 +579,92 @@ function assignSide(side,hex,a,index=-1){
 function persistPaletteLibrary(){
  if(!NexusPixelPaletteLibrary.save(paletteLibrary))msg('No se pudo guardar la biblioteca en este navegador. Expórtala como respaldo.');
 }
-function renderPaletteLibrary(){
- const holder=$('paletteLibrarySelect');holder.replaceChildren();
+// Solo renderizamos una vista previa compacta por tarjeta para evitar
+// miles de elementos en bibliotecas grandes. "Ver todos" expande cada paleta.
+const expandedPaletteCards=new Set();
+function paletteLibraryButton(label,action,disabled=false){
+ const button=document.createElement('button');
+ button.type='button';button.textContent=label;button.disabled=disabled;
+ button.onclick=action;
+ return button;
+}
+function renamePaletteEntry(id){
+ const entry=paletteLibrary.palettes.find(p=>p.id===id);if(!entry)return;
+ const title=prompt('Renombrar paleta:',entry.name);
+ if(title===null)return;
+ try{
+  NexusPixelPaletteLibrary.rename(paletteLibrary,id,title);
+  renderPaletteLibrary();persistPaletteLibrary();msg('Paleta renombrada');
+ }catch(error){alert(error.message)}
+}
+function deletePaletteEntry(id){
+ const entry=paletteLibrary.palettes.find(p=>p.id===id);if(!entry)return;
+ if(!confirm('¿Eliminar la paleta «'+entry.name+'» de la biblioteca?'))return;
+ try{
+  const wasActive=id===paletteLibrary.activeId;
+  NexusPixelPaletteLibrary.remove(paletteLibrary,id);
+  expandedPaletteCards.delete(id);
+  if(wasActive)activatePaletteLibrary(paletteLibrary.activeId);
+  else{renderPaletteLibrary();persistPaletteLibrary()}
+  msg('Paleta eliminada');
+ }catch(error){alert(error.message)}
+}
+function renderPaletteLibraryCards(){
+ const container=$('paletteLibraryCards');container.replaceChildren();
  for(const item of paletteLibrary.palettes){
-  const option=document.createElement('option');
-  option.value=item.id;option.textContent=item.name;holder.append(option);
+  const active=item.id===paletteLibrary.activeId;
+  const card=document.createElement('article');
+  card.className='palette-library-card'+(active?' is-active':'');
+  card.setAttribute('role','listitem');
+  const head=document.createElement('div');head.className='palette-library-card-head';
+  const name=document.createElement('h3');name.textContent=item.name;
+  const badge=document.createElement('span');badge.className='palette-library-status';
+  badge.textContent=active?'Activa':'Disponible';
+  head.append(name,badge);
+  const count=document.createElement('small');count.className='palette-library-card-count';
+  count.textContent=item.swatches.length+' '+(item.swatches.length===1?'color':'colores');
+  const preview=document.createElement('div');preview.className='palette-library-card-colors';
+  preview.setAttribute('aria-label','Muestras de '+item.name);
+  const expanded=expandedPaletteCards.has(item.id);
+  const limit=expanded?item.swatches.length:Math.min(24,item.swatches.length);
+  for(let i=0;i<limit;i++){
+   const sample=item.swatches[i],chip=document.createElement('span');
+   chip.className='palette-library-color';
+   chip.style.background=rgbaCSS(sample.hex,sample.alpha);
+   chip.title=sample.hex+' · '+Math.round(sample.alpha/255*100)+'% opacidad';
+   preview.append(chip);
+  }
+  if(item.swatches.length===0){
+   const empty=document.createElement('small');empty.className='palette-library-empty';
+   empty.textContent='Paleta vacía · Añade colores desde el panel de pintura';preview.append(empty);
+  }else if(item.swatches.length>24){
+   const expand=paletteLibraryButton(expanded?'Ver menos':'+'+(item.swatches.length-24)+' · Ver todos',()=>{
+    if(expanded)expandedPaletteCards.delete(item.id);
+    else expandedPaletteCards.add(item.id);
+    renderPaletteLibraryCards();
+   });
+   expand.className='palette-library-expand';preview.append(expand);
+  }
+  const actions=document.createElement('div');actions.className='palette-library-card-actions';
+  const activate=paletteLibraryButton(active?'✓ Activa':'Usar paleta',()=>{
+   activatePaletteLibrary(item.id);
+   msg('Paleta activa: '+item.name);
+  },active);
+  activate.className='palette-library-activate';
+  activate.setAttribute('aria-pressed',String(active));
+  const rename=paletteLibraryButton('Renombrar',()=>renamePaletteEntry(item.id));
+  const remove=paletteLibraryButton('Eliminar',()=>deletePaletteEntry(item.id),paletteLibrary.palettes.length===1);
+  actions.append(activate,rename,remove);
+  card.append(head,count,preview,actions);
+  container.append(card);
  }
- holder.value=paletteLibrary.activeId;
+}
+function renderPaletteLibrary(){
+ const active=NexusPixelPaletteLibrary.active(paletteLibrary);
+ $('activePaletteName').textContent=active.name+' · '+active.swatches.length+' colores';
  $('paletteLibraryCount').textContent=paletteLibrary.palettes.length+'/48 paletas';
- $('deletePalette').disabled=paletteLibrary.palettes.length===1;
+ $('newPalette').disabled=paletteLibrary.palettes.length>=NexusPixelPaletteLibrary.MAX_PALETTES;
+ renderPaletteLibraryCards();
 }
 function activatePaletteLibrary(id,save=true){
  const entry=NexusPixelPaletteLibrary.choose(paletteLibrary,id);
@@ -616,29 +693,18 @@ function importProjectPalette(v){
  }
  activatePaletteLibrary(selected.id);
 }
-$('paletteLibrarySelect').onchange=e=>{
- try{activatePaletteLibrary(e.target.value);msg('Paleta activa: '+NexusPixelPaletteLibrary.active(paletteLibrary).name)}
- catch(err){alert(err.message);renderPaletteLibrary()}
+$('openPaletteLibrary').onclick=()=>{
+ renderPaletteLibrary();
+ if(!$('paletteLibraryDialog').open)$('paletteLibraryDialog').showModal();
 };
+$('closePaletteLibrary').onclick=()=>$('paletteLibraryDialog').close();
 $('newPalette').onclick=()=>{
  const title=prompt('Nombre para la nueva paleta:','Nueva paleta');
  if(title===null)return;
  try{const item=addPaletteLibrary(title,[]);msg('Nueva paleta activa: '+item.name)}
  catch(error){alert(error.message)}
 };
-$('renamePalette').onclick=()=>{
- const current=NexusPixelPaletteLibrary.active(paletteLibrary);
- const title=prompt('Renombrar paleta:',current.name);
- if(title===null)return;
- try{NexusPixelPaletteLibrary.rename(paletteLibrary,current.id,title);renderPaletteLibrary();persistPaletteLibrary();msg('Paleta renombrada')}
- catch(error){alert(error.message)}
-};
-$('deletePalette').onclick=()=>{
- const current=NexusPixelPaletteLibrary.active(paletteLibrary);
- if(!confirm('¿Eliminar la paleta «'+current.name+'» de la biblioteca?'))return;
- try{NexusPixelPaletteLibrary.remove(paletteLibrary,current.id);activatePaletteLibrary(paletteLibrary.activeId);msg('Paleta eliminada')}
- catch(error){alert(error.message)}
-};
+
 $('exportPaletteLibrary').onclick=()=>{
  download(JSON.stringify(paletteLibrary,null,2),'nexus-pixel-biblioteca-paletas.json','application/json');
  msg('Biblioteca exportada: '+paletteLibrary.palettes.length+' paletas');
@@ -688,8 +754,8 @@ document.addEventListener('pointerdown',e=>{
 $('swapColors').onclick=()=>{const left={hex:color,alpha},right={hex:colorEnd,alpha:alphaEnd};const leftIndex=selectedSwatch;assignSide('left',right.hex,right.alpha,selectedSwatchRight);assignSide('right',left.hex,left.alpha,leftIndex);msg('Colores intercambiados')};
 $('activeColor').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,e.target.value,v.alpha,-1)};
 $('activeAlpha').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,v.hex,Math.round(Number(e.target.value)*255/100),-1)};
-$('addSwatch').onclick=()=>{if(palette.length>=128){msg('Máximo de 128 muestras');return}const v=sideValues(activeColorSide);palette.push({...v});selectSwatch(palette.length-1,activeColorSide);persistPaletteLibrary();msg('Color de pintura guardado en la paleta activa')};
-$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0||i>=palette.length){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();persistPaletteLibrary();msg('Muestra eliminada')};
+$('addSwatch').onclick=()=>{if(palette.length>=128){msg('Máximo de 128 muestras');return}const v=sideValues(activeColorSide);palette.push({...v});selectSwatch(palette.length-1,activeColorSide);renderPaletteLibrary();persistPaletteLibrary();msg('Color de pintura guardado en la paleta activa')};
+$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0||i>=palette.length){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();renderPaletteLibrary();persistPaletteLibrary();msg('Muestra eliminada')};
 $('savePalette').onclick=()=>{
  const active=NexusPixelPaletteLibrary.active(paletteLibrary);
  download(JSON.stringify({type:'nexus-pixel-palette',version:1,name:active.name,swatches:palette},null,2),'nexus-pixel-paleta.json','application/json');

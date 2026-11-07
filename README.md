@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.61** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.62** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -226,3 +226,22 @@ Al iniciar, se recalcula la muestra seleccionada según el color de pintura
 actual y el contenido real de la biblioteca guardada. Eliminar una muestra
 requiere un índice válido, evitando borrar otra muestra si la biblioteca
 activa se ha modificado o es más pequeña que la anterior.
+
+### Biblioteca en ventana con tarjetas (0.2.62)
+
+La sección **Paleta de colores** ahora muestra solo un acceso a **Biblioteca de paletas**,
+el nombre de la paleta activa y sus muestras para pintar. Al pulsar ese acceso
+se abre un diálogo propio, tanto en PC como en móvil, sin abandonar el lienzo.
+
+En el diálogo aparece una lista de tarjetas, una por paleta. Cada una muestra
+su **nombre, número de colores, muestras visuales RGBA, y estado de selección**.
+La lista muestra 24 colores como vista previa, con **Ver todos** para expandir
+las paletas grandes sin saturar el navegador en equipos modestos.
+El botón **Usar paleta** activa exclusivamente esa paleta. Cada tarjeta permite
+**Renombrar** y **Eliminar**, incluso si no es la activa.
+
+Las opciones **Nueva paleta**, **Importar/Exportar paleta** y
+**Importar/Exportar biblioteca** se movieron a la ventana. Se mantienen
+el formato JSON de intercambio y el almacenamiento local de v0.2.60.
+La ventana sigue la misma regla que otros diálogos: no se cierra al pulsar
+fuera ni con Esc; se cierra con su botón X.
