@@ -1,4 +1,4 @@
-// Nexus Pixel Mobile 0.2.53 — vista táctil independiente de escritorio.
+// Nexus Pixel Mobile 0.2.54 — vista táctil independiente de escritorio.
 (() => {
   "use strict";
   const mq=window.matchMedia("(min-width:0px)");
@@ -13,6 +13,18 @@
   const $=id=>document.getElementById(id);
   let open=null,paintSide="left",panEnabled=false;
   const pointers=new Map();
+  let pinchActive=false,pinchCenter=null,pinchDistance=0;
+  const clearSelectionButton=$("mobileClearSelection");
+  function syncClearSelection(){
+    clearSelectionButton.hidden=!api.isSelectionActive();
+  }
+  clearSelectionButton.addEventListener("click",()=>{
+    api.clearSelection();
+    closePanels();
+    syncClearSelection();
+  });
+  document.addEventListener("nexus-selection-change",syncClearSelection);
+  syncClearSelection();
 
   function closePanels(){
     open=null;document.body.classList.remove("mobile-panel-tools","mobile-panel-options");
@@ -50,6 +62,8 @@
     $("mobilePan").classList.toggle("active",panEnabled);
     $("mobilePan").querySelector("small").textContent=panEnabled?"Mover: ACT.":"Mover vista";
     pointers.clear();
+    pinchActive=false;pinchCenter=null;pinchDistance=0;
+    api.finishTouchGesture();
   }
   $("mobilePan").onclick=()=>{closePanels();setPan(!panEnabled)};
 
@@ -74,44 +88,87 @@
 
   function distance(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
   function center(a,b){return{x:(a.x+b.x)/2,y:(a.y+b.y)/2}}
-  // In moving mode, touches are captured before the canvas drawing handlers.
-  // This keeps single-finger movement separate from painting and two-finger zoom.
+  function gesturePair(){
+    const values=[...pointers.values()];
+    if(values.length<2)return null;
+    const a=values[0],b=values[1];
+    return {center:center(a,b),distance:Math.max(1,distance(a,b))};
+  }
+  function resetPinchReference(){
+    const pair=gesturePair();
+    pinchCenter=pair?.center||null;
+    pinchDistance=pair?.distance||0;
+  }
+  function suppress(event){
+    if(event.cancelable)event.preventDefault();
+    event.stopImmediatePropagation();
+  }
+  // Registrar todos los dedos, incluso con Mover vista desactivado.
+  // Un dedo dibuja; dos dedos siempre desplazan y amplían la vista.
   viewport.addEventListener("pointerdown",event=>{
-    if(!mq.matches||!panEnabled||event.pointerType!=="touch")return;
-    event.preventDefault();event.stopPropagation();
+    if(!mq.matches||event.pointerType!=="touch")return;
     pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
-    try{viewport.setPointerCapture(event.pointerId)}catch(_){}
+    if(pointers.size===1){
+      if(panEnabled){
+        try{viewport.setPointerCapture(event.pointerId)}catch(_){}
+        suppress(event);
+      }else{
+        api.startTouchGesture();
+      }
+      return;
+    }
+    if(!pinchActive){
+      if(!panEnabled)api.cancelTouchStroke();
+      pinchActive=true;
+    }
+    // Redirige también el primer dedo a la vista: el canvas ya no debe dibujar.
+    for(const id of pointers.keys()){
+      try{viewport.setPointerCapture(id)}catch(_){}
+    }
+    resetPinchReference();
+    suppress(event);
   },true);
+
   viewport.addEventListener("pointermove",event=>{
-    if(!mq.matches||!panEnabled||!pointers.has(event.pointerId))return;
-    event.preventDefault();event.stopPropagation();
+    if(!mq.matches||event.pointerType!=="touch"||!pointers.has(event.pointerId))return;
     const before=pointers.get(event.pointerId);
     const after={x:event.clientX,y:event.clientY};
-    if(pointers.size===1)api.panBy(after.x-before.x,after.y-before.y);
-    else{
-      const other=Array.from(pointers.entries()).find(([id])=>id!==event.pointerId)?.[1];
-      if(other){
-        const prevD=distance(before,other),nextD=distance(after,other);
-        const prevCenter=center(before,other),nextCenter=center(after,other);
-        if(prevD>4&&nextD>4){
-          api.zoomAt(Math.max(.05,Math.min(24,api.getZoom()*nextD/prevD)),nextCenter.x,nextCenter.y);
-        }
-        api.panBy(nextCenter.x-prevCenter.x,nextCenter.y-prevCenter.y);
-      }
-    }
     pointers.set(event.pointerId,after);
+    if(pinchActive){
+      const pair=gesturePair();
+      if(pair&&pinchCenter&&pinchDistance){
+        // La distancia de los dedos determina el zoom; su centro desplaza el dibujo.
+        const zoom=Math.max(.05,Math.min(24,api.getZoom()*pair.distance/pinchDistance));
+        api.zoomAt(zoom,pair.center.x,pair.center.y);
+        api.panBy(pair.center.x-pinchCenter.x,pair.center.y-pinchCenter.y);
+      }
+      if(pair){
+        pinchCenter=pair.center;pinchDistance=pair.distance;
+      }
+      suppress(event);
+    }else if(panEnabled){
+      api.panBy(after.x-before.x,after.y-before.y);
+      suppress(event);
+    }
   },true);
+
   function stopGesture(event){
-    if(!pointers.has(event.pointerId))return;
-    if(mq.matches&&panEnabled){event.preventDefault();event.stopPropagation();}
+    if(event.pointerType!=="touch"||!pointers.has(event.pointerId))return;
+    const intercept=pinchActive||panEnabled;
     pointers.delete(event.pointerId);
+    if(pinchActive&&pointers.size>=2)resetPinchReference();
+    if(!pointers.size){
+      pinchActive=false;pinchCenter=null;pinchDistance=0;
+      api.finishTouchGesture();
+    }
+    if(intercept)suppress(event);
     try{if(viewport.hasPointerCapture(event.pointerId))viewport.releasePointerCapture(event.pointerId)}catch(_){}
   }
   viewport.addEventListener("pointerup",stopGesture,true);
   viewport.addEventListener("pointercancel",stopGesture,true);
 
   mq.addEventListener("change",()=>{
-    closePanels();pointers.clear();
+    closePanels();pointers.clear();pinchActive=false;pinchCenter=null;pinchDistance=0;api.finishTouchGesture();
     if(!mq.matches)setPan(false);
     else requestAnimationFrame(()=>api.fit());
   });

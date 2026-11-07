@@ -103,6 +103,7 @@ function syncSelectionControls(){
  const selected=selectionMask !== null && selectionMask.length===W*H;
  $('invertSelection').disabled=!selected;
  $('selectionControls').hidden=!selected && !tool.startsWith('select-');
+ document.dispatchEvent(new CustomEvent('nexus-selection-change'));
 }
 function resetSelection(){selectionMask=null;selectionPreview=null;lassoPoints=[];endPaintStroke();syncSelectionControls()}
 function invertSelection(){
@@ -1157,11 +1158,49 @@ document.addEventListener('keyup',e=>{
 });
 document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.target.tagName)||e.target.isContentEditable)return;if((e.ctrlKey||e.metaKey)&&!e.altKey){const k=e.key.toLowerCase();if(k==='c'||k==='x'||k==='v'){e.preventDefault();if(k==='v')startPaste();else copySelectedPixels(k==='x');return}}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('undo').click();return}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();$('redo').click();return}if(e.key==='['){setBrushSize(brushSize-1);return}if(e.key===']'){setBrushSize(brushSize+1);return}if(e.key==='Escape'){if(moveOrigin){endMove(false);msg('Movimiento cancelado');return}if(!$('colorPopup').hidden){$('colorPopup').hidden=true;return}if(pastePlacement){pastePlacement=null;draw();msg('Pegado cancelado')}else{resetSelection();draw();msg('Selección quitada')}return}const keys={b:'pencil',e:'eraser',g:'fill',i:'picker',l:'line',r:'rect',o:'ellipse',s:'spray',m:'select-rect',n:'select-lasso',w:'select-magic',v:'move'};if(e.key.toLowerCase()==='x'){const left={hex:color,alpha},right={hex:colorEnd,alpha:alphaEnd};const i=selectedSwatch;assignSide('left',right.hex,right.alpha,selectedSwatchRight);assignSide('right',left.hex,left.alpha,i);return}if(keys[e.key.toLowerCase()])selectTool(keys[e.key.toLowerCase()])});refresh();
 // Interface for the independent mobile controller. All mutations stay inside the editor.
+// Punto de retorno del primer dedo. Si aparece otro dedo, se descarta solo
+// el trazo que acababa de empezar para que pellizcar no pinte accidentalmente.
+let mobileTouchCheckpoint=null;
 window.NexusPixelTouch={
  setPaintSide(side){mobilePaintSide=side==='right'?'right':'left'},
  getPaintSide(){return mobilePaintSide},
  setPanEnabled(on){mobilePanEnabled=!!on},
  isPanEnabled(){return mobilePanEnabled},
+ isSelectionActive(){return selectionMask!==null||tool.startsWith('select-')},
+ clearSelection(){
+  resetSelection();
+  selectTool('pencil');
+  draw();
+  msg('Selección quitada');
+ },
+ startTouchGesture(){
+  mobileTouchCheckpoint={
+   undoLast:undo.length?undo[undo.length-1]:null,
+   selection:selectionMask?new Uint8Array(selectionMask):null
+  };
+ },
+ finishTouchGesture(){mobileTouchCheckpoint=null},
+ cancelTouchStroke(){
+  if(moveOrigin)endMove(false);
+  const previous=mobileTouchCheckpoint;
+  const lastUndo=undo.length?undo[undo.length-1]:null;
+  // La instantánea del trazo actual puede reemplazar la más antigua del
+  // historial cuando se alcanza el límite, por eso comparamos por identidad.
+  if(previous&&lastUndo&&lastUndo!==previous.undoLast){
+   const track=lastUndo.animationTracks.find(t=>t.name===currentAnimation);
+   const prevFrame=track?.frames[selected];
+   if(prevFrame&&prevFrame.layers.length===frame().layers.length){
+    frame().layers=prevFrame.layers.map(bytes=>new Uint8ClampedArray(bytes));
+    undo.pop();
+   }
+  }
+  if(previous)selectionMask=previous.selection;
+  dragging=false;start=last=null;preview=null;
+  selectionPreview=null;lassoPoints=[];lastShapePointer=null;
+  shapeShiftHeld=false;endPaintStroke();
+  syncSelectionControls();
+  draw();
+ },
  panBy(dx,dy){panX+=dx;panY+=dy;applyPan()},
  zoomAt(next,x,y){setZoom(next,x,y)},
  getZoom(){return actualZoom()},

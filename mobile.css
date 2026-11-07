@@ -1,4 +1,4 @@
-/* Nexus Pixel Mobile 0.2.53: ajustes únicamente para pantallas pequeñas. */
+/* Nexus Pixel Mobile 0.2.54: ajustes únicamente para pantallas pequeñas. */
 .mobile-dock,.mobile-zoom-controls,.mobile-backdrop{display:none}
 @media (min-width:0px){
   :root{--mobile-header:52px;--mobile-dock:63px}
@@ -79,3 +79,7 @@
  .mobile-dock button small{font-size:8px}
  .tools{grid-template-columns:repeat(4,minmax(0,1fr))}
 }
+
+/* 0.2.54 — salida rápida del modo selección, visible solo cuando corresponde. */
+.mobile-zoom-controls #mobileClearSelection{width:58px;min-width:58px;font-size:12px;font-weight:600;color:#fff;background:#743a4c;border:1px solid #c17d96}
+.mobile-zoom-controls #mobileClearSelection[hidden]{display:none!important}
