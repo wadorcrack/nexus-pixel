@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.47** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.48** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -30,3 +30,20 @@ Los dibujos se editan en el navegador; para conservarlos, utiliza **Guardar proy
 ## Licencias de terceros
 
 La iconografía SVG incluida se basa en Lucide y conserva su referencia de licencia ISC en `index.html`.
+
+
+## Instalar como aplicación (PWA)
+
+Publica la rama `main` desde **Settings → Pages → Deploy from a branch → main → /(root)**.
+Abre **https://wadorcrack.github.io/nexus-pixel/** en Chrome. Usa el botón de instalación
+del navegador o el botón de descargar en el encabezado cuando aparezca.
+Después de la primera visita con Internet, el editor puede abrirse sin conexión.
+
+- `manifest.webmanifest` — identidad, iconos y modo de ventana independiente.
+- `pwa.js` — registra el service worker y presenta el botón opcional de instalar.
+- `sw.js` — almacena localmente los archivos esenciales.
+- `icons/` — iconos PNG 192 × 192 y 512 × 512.
+
+**Importante:** el modo sin conexión guarda la aplicación, **no los dibujos**.
+Los usuarios deben guardar sus proyectos JSON y exportaciones mediante las opciones del editor.
+Para desplegar nuevas versiones, actualiza la versión de caché en `sw.js`.
