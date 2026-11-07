@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.59** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.60** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -193,3 +193,29 @@ pulsado al soltarlo.
 No cambia la máscara guardada de proyectos ni las exportaciones. El editor
 móvil conserva sus controles táctiles; los usuarios con teclado externo
 también pueden usar Shift.
+
+## Biblioteca de paletas (0.2.60)
+
+- La sección **PALETA DE COLORES** ahora solo selecciona muestras almacenadas; editar el
+  color u opacidad del pincel **no altera una muestra guardada**. El botón **+** agrega
+  una copia exacta del color de pintura disponible (RGBA).
+- **BIBLIOTECA DE PALETAS**: selector único, crear una paleta vacía, renombrar y eliminar;
+  solo una está activa a la vez. Las modificaciones se guardan en `localStorage`
+  (`nexus-pixel-palette-library-v1`) y la paleta activa continúa en los proyectos nuevos.
+- Se admiten hasta **48 paletas**, con hasta **128 colores cada una**. La biblioteca nunca
+  permite borrar su última paleta.
+- **Exportar / importar una paleta** conserva el formato JSON v1 anterior
+  (`type: nexus-pixel-palette`); importar crea una nueva entrada sin sobrescribir.
+  **Exportar / importar biblioteca** utiliza un JSON adicional
+  (`type: nexus-pixel-palette-library`, versión 1): al importar, las paletas se
+  agregan sin borrar las anteriores, y se activa la que venía seleccionada.
+- Los proyectos nuevos **no reinician** la biblioteca ni su selección. Al abrir un
+  proyecto viejo con paleta incorporada, el editor busca una idéntica y, si no
+  existe, crea una nueva en la biblioteca; se conserva la compatibilidad con
+  proyectos JSON v3.
+- El historial Deshacer/Rehacer se concentra en la edición; no revierte la biblioteca
+  global por accidente. Los colores y los píxeles exportados no cambian.
+- Se aplican las mismas funciones en PC y móvil; la PWA incluye
+  `palette-library.js` para trabajar offline.
+- Si el almacenamiento local está bloqueado, el editor sigue funcionando pero
+  muestra un aviso para exportar la biblioteca como respaldo.

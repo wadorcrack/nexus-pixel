@@ -91,6 +91,8 @@ function updateAnimationUI(){
 
 const DEFAULT_PALETTE=['#000000','#ffffff','#ef4444','#fb923c','#facc15','#22c55e','#38bdf8','#2563eb','#8b5cf6','#ec4899','#92400e','#94a3b8','#475569','#a3e635','#14b8a6'];
 let palette=DEFAULT_PALETTE.map(hex=>({hex,alpha:255}));
+let paletteLibrary=NexusPixelPaletteLibrary.load(palette);
+palette=NexusPixelPaletteLibrary.active(paletteLibrary).swatches;
 let selectedSwatch=6,selectedSwatchRight=-1,activeColorSide='left',strokeSide='left',randomColorEnabled=false;
 // Cada pulsación deposita pintura como máximo una vez sobre cada píxel.
 let strokePainted=null;
@@ -264,7 +266,7 @@ function snapshot(){
  const limit=Math.min(30,Math.max(1,Math.floor(64*1024*1024/Math.max(1,bytes))));
  while(undo.length>=limit)undo.shift();undo.push(copyState());
 }
-function restore(s){setAnimationTracks(s.animationTracks.map(t=>({name:t.name,frames:cloneFrames(t.frames)})),s.currentAnimation);layerNames=s.layerNames;layerVisible=s.layerVisible||layerNames.map(()=>true);layerLocked=s.layerLocked||layerNames.map(()=>false);selected=s.selected;activeLayer=s.activeLayer;W=s.W;H=s.H;characterPack=clonePack(s.characterPack);selected=Math.max(0,Math.min(s.selected??0,frames.length-1));if(s.palette){palette=s.palette.map(normalizeSwatch);selectedSwatch=s.selectedSwatch;selectedSwatchRight=s.selectedSwatchRight??-1;color=s.color;alpha=s.alpha;colorEnd=s.colorEnd??colorEnd;alphaEnd=s.alphaEnd??alphaEnd;activeColorSide=s.activeColorSide||'left';randomColorEnabled=!!s.randomColorEnabled;$('randomColor').checked=randomColorEnabled;renderPalette();renderColorPair()}if(Array.isArray(s.gradientStops)&&s.gradientStops.length){gradientStops=s.gradientStops.map(normalizeSwatch);selectedGradientStop=Math.max(0,Math.min(gradientStops.length-1,s.selectedGradientStop??0));radialInvert=!!s.radialInvert;renderGradientControls();syncToolPanels()}if(typeof s.guideGridEnabled==='boolean')guideGridEnabled=s.guideGridEnabled;
+function restore(s){setAnimationTracks(s.animationTracks.map(t=>({name:t.name,frames:cloneFrames(t.frames)})),s.currentAnimation);layerNames=s.layerNames;layerVisible=s.layerVisible||layerNames.map(()=>true);layerLocked=s.layerLocked||layerNames.map(()=>false);selected=s.selected;activeLayer=s.activeLayer;W=s.W;H=s.H;characterPack=clonePack(s.characterPack);selected=Math.max(0,Math.min(s.selected??0,frames.length-1));if(s.palette){selectedSwatch=-1;selectedSwatchRight=-1;color=s.color;alpha=s.alpha;colorEnd=s.colorEnd??colorEnd;alphaEnd=s.alphaEnd??alphaEnd;activeColorSide=s.activeColorSide||'left';randomColorEnabled=!!s.randomColorEnabled;$('randomColor').checked=randomColorEnabled;renderPalette();renderColorPair()}if(Array.isArray(s.gradientStops)&&s.gradientStops.length){gradientStops=s.gradientStops.map(normalizeSwatch);selectedGradientStop=Math.max(0,Math.min(gradientStops.length-1,s.selectedGradientStop??0));radialInvert=!!s.radialInvert;renderGradientControls();syncToolPanels()}if(typeof s.guideGridEnabled==='boolean')guideGridEnabled=s.guideGridEnabled;
  guideCellWidth=Number.isInteger(s.guideCellWidth)?Math.max(1,Math.min(2000,s.guideCellWidth)):32;
  guideCellHeight=Number.isInteger(s.guideCellHeight)?Math.max(1,Math.min(2000,s.guideCellHeight)):32;
  guideGridColor=/^#[0-9a-f]{6}$/i.test(s.guideGridColor||'')?s.guideGridColor:'#5ac8ef';
@@ -572,6 +574,85 @@ function assignSide(side,hex,a,index=-1){
  else{color=hex;alpha=a;selectedSwatch=index}
  activeColorSide=side;renderPalette();renderColorPair();
 }
+function persistPaletteLibrary(){
+ if(!NexusPixelPaletteLibrary.save(paletteLibrary))msg('No se pudo guardar la biblioteca en este navegador. Expórtala como respaldo.');
+}
+function renderPaletteLibrary(){
+ const holder=$('paletteLibrarySelect');holder.replaceChildren();
+ for(const item of paletteLibrary.palettes){
+  const option=document.createElement('option');
+  option.value=item.id;option.textContent=item.name;holder.append(option);
+ }
+ holder.value=paletteLibrary.activeId;
+ $('paletteLibraryCount').textContent=paletteLibrary.palettes.length+'/48 paletas';
+ $('deletePalette').disabled=paletteLibrary.palettes.length===1;
+}
+function activatePaletteLibrary(id,save=true){
+ const entry=NexusPixelPaletteLibrary.choose(paletteLibrary,id);
+ palette=entry.swatches;
+ selectedSwatch=-1;selectedSwatchRight=-1;
+ renderPaletteLibrary();renderPalette();renderColorPair();
+ if(save)persistPaletteLibrary();
+}
+function addPaletteLibrary(name,colors){
+ const item=NexusPixelPaletteLibrary.add(paletteLibrary,name,colors);
+ activatePaletteLibrary(item.id);
+ return item;
+}
+function importProjectPalette(v){
+ if(!Array.isArray(v.palette)||v.palette.length>128)return;
+ const fromProject=NexusPixelPaletteLibrary.swatches(v.palette);
+ const byId=paletteLibrary.palettes.find(p=>p.id===v.paletteLibraryId);
+ const same=(p)=>p&&JSON.stringify(p.swatches)===JSON.stringify(fromProject);
+ let selected=same(byId)?byId:NexusPixelPaletteLibrary.matching(paletteLibrary,fromProject);
+ if(!selected){
+  try{
+   const projectName=typeof v.paletteName==='string'&&v.paletteName.trim()
+     ?v.paletteName.trim().slice(0,48):'Paleta del proyecto';
+   selected=NexusPixelPaletteLibrary.add(paletteLibrary,projectName,fromProject);
+  }catch(error){msg('Biblioteca llena: no se pudo añadir la paleta del proyecto');return;}
+ }
+ activatePaletteLibrary(selected.id);
+}
+$('paletteLibrarySelect').onchange=e=>{
+ try{activatePaletteLibrary(e.target.value);msg('Paleta activa: '+NexusPixelPaletteLibrary.active(paletteLibrary).name)}
+ catch(err){alert(err.message);renderPaletteLibrary()}
+};
+$('newPalette').onclick=()=>{
+ const title=prompt('Nombre para la nueva paleta:','Nueva paleta');
+ if(title===null)return;
+ try{const item=addPaletteLibrary(title,[]);msg('Nueva paleta activa: '+item.name)}
+ catch(error){alert(error.message)}
+};
+$('renamePalette').onclick=()=>{
+ const current=NexusPixelPaletteLibrary.active(paletteLibrary);
+ const title=prompt('Renombrar paleta:',current.name);
+ if(title===null)return;
+ try{NexusPixelPaletteLibrary.rename(paletteLibrary,current.id,title);renderPaletteLibrary();persistPaletteLibrary();msg('Paleta renombrada')}
+ catch(error){alert(error.message)}
+};
+$('deletePalette').onclick=()=>{
+ const current=NexusPixelPaletteLibrary.active(paletteLibrary);
+ if(!confirm('¿Eliminar la paleta «'+current.name+'» de la biblioteca?'))return;
+ try{NexusPixelPaletteLibrary.remove(paletteLibrary,current.id);activatePaletteLibrary(paletteLibrary.activeId);msg('Paleta eliminada')}
+ catch(error){alert(error.message)}
+};
+$('exportPaletteLibrary').onclick=()=>{
+ download(JSON.stringify(paletteLibrary,null,2),'nexus-pixel-biblioteca-paletas.json','application/json');
+ msg('Biblioteca exportada: '+paletteLibrary.palettes.length+' paletas');
+};
+$('importPaletteLibrary').onclick=()=>$('paletteLibraryFile').click();
+$('paletteLibraryFile').onchange=async e=>{
+ try{
+  const file=e.target.files[0];if(!file)return;
+  if(file.size>512*1024)throw Error('El archivo supera 512 KB');
+  const incoming=JSON.parse(await file.text());
+  NexusPixelPaletteLibrary.importLibrary(paletteLibrary,incoming);
+  activatePaletteLibrary(paletteLibrary.activeId);
+  msg('Biblioteca importada: '+paletteLibrary.palettes.length+' paletas disponibles');
+ }catch(error){alert('No se pudo importar la biblioteca: '+error.message)}
+ finally{e.target.value=''}
+};
 function renderPalette(){
  const holder=$('palette');holder.replaceChildren();
  palette.forEach((entry,i)=>{
@@ -583,11 +664,6 @@ function renderPalette(){
   b.oncontextmenu=e=>{e.preventDefault();assignSide('right',entry.hex,entry.alpha,i)};
   holder.append(b);
  });
-}
-function syncSelectedSwatch(){
- const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;
- if(i>=0&&palette[i]){const v=sideValues(activeColorSide);palette[i]={hex:v.hex,alpha:v.alpha}}
- renderPalette();renderColorPair();
 }
 function applyColor(c,a=alpha){assignSide('left',c,a,-1)}
 function selectSwatch(i,side='left'){if(!palette[i])return;assignSide(side,palette[i].hex,palette[i].alpha,i)}
@@ -608,18 +684,26 @@ document.addEventListener('pointerdown',e=>{
  if(!$('colorPopup').hidden&&!e.target.closest('#colorPopup')&&!e.target.closest('.color-pair'))$('colorPopup').hidden=true;
 });
 $('swapColors').onclick=()=>{const left={hex:color,alpha},right={hex:colorEnd,alpha:alphaEnd};const leftIndex=selectedSwatch;assignSide('left',right.hex,right.alpha,selectedSwatchRight);assignSide('right',left.hex,left.alpha,leftIndex);msg('Colores intercambiados')};
-$('activeColor').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,e.target.value,v.alpha,activeColorSide==='left'?selectedSwatch:selectedSwatchRight);syncSelectedSwatch()};
-$('activeAlpha').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,v.hex,Math.round(Number(e.target.value)*255/100),activeColorSide==='left'?selectedSwatch:selectedSwatchRight);syncSelectedSwatch()};
-$('addSwatch').onclick=()=>{if(palette.length>=128){msg('Máximo de 128 muestras');return}const v=sideValues(activeColorSide);palette.push({...v});selectSwatch(palette.length-1,activeColorSide);msg('Muestra RGBA guardada')};
-$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();msg('Muestra eliminada')};
-$('savePalette').onclick=()=>{download(JSON.stringify({type:'nexus-pixel-palette',version:1,swatches:palette},null,2),'nexus-pixel-palette.json','application/json');msg('Plantilla de colores exportada')};
+$('activeColor').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,e.target.value,v.alpha,-1)};
+$('activeAlpha').oninput=e=>{const v=sideValues(activeColorSide);assignSide(activeColorSide,v.hex,Math.round(Number(e.target.value)*255/100),-1)};
+$('addSwatch').onclick=()=>{if(palette.length>=128){msg('Máximo de 128 muestras');return}const v=sideValues(activeColorSide);palette.push({...v});selectSwatch(palette.length-1,activeColorSide);persistPaletteLibrary();msg('Color de pintura guardado en la paleta activa')};
+$('removeSwatch').onclick=()=>{const i=activeColorSide==='left'?selectedSwatch:selectedSwatchRight;if(i<0){msg('Selecciona una muestra de la paleta');return}palette.splice(i,1);selectedSwatch=selectedSwatch===i?-1:selectedSwatch>i?selectedSwatch-1:selectedSwatch;selectedSwatchRight=selectedSwatchRight===i?-1:selectedSwatchRight>i?selectedSwatchRight-1:selectedSwatchRight;renderPalette();persistPaletteLibrary();msg('Muestra eliminada')};
+$('savePalette').onclick=()=>{
+ const active=NexusPixelPaletteLibrary.active(paletteLibrary);
+ download(JSON.stringify({type:'nexus-pixel-palette',version:1,name:active.name,swatches:palette},null,2),'nexus-pixel-paleta.json','application/json');
+ msg('Paleta «'+active.name+'» exportada');
+};
 $('openPalette').onclick=()=>$('paletteFile').click();
 $('paletteFile').onchange=async e=>{try{
- const file=e.target.files[0];if(!file)return;const obj=JSON.parse(await file.text());
- if(obj.type!=='nexus-pixel-palette'||!Array.isArray(obj.swatches)||obj.swatches.length>128)throw Error('Plantilla de colores no válida');
- palette=obj.swatches.map(normalizeSwatch);selectedSwatch=palette.length?0:-1;selectedSwatchRight=-1;
- if(selectedSwatch>=0)selectSwatch(0);else renderPalette();msg('Plantilla de colores importada');
+ const file=e.target.files[0];if(!file)return;
+ if(file.size>512*1024)throw Error('El archivo supera 512 KB');
+ const obj=JSON.parse(await file.text());
+ const displayName=(file.name||'Paleta importada').replace(/\.json$/i,'').slice(0,48);
+ const imported=NexusPixelPaletteLibrary.importPalette(paletteLibrary,obj,displayName);
+ activatePaletteLibrary(imported.id);
+ msg('Paleta importada y activada: '+imported.name);
 }catch(err){alert('Error al importar la paleta: '+err.message)}finally{e.target.value=''}};
+renderPaletteLibrary();renderPalette();renderColorPair();persistPaletteLibrary();
 function renderGradientControls(){
  const strip=$('gradientStrip');strip.replaceChildren();
  gradientStops.forEach((stop,i)=>{const b=document.createElement('button');b.type='button';b.className='gradient-stop'+(selectedGradientStop===i?' active':'');b.title='Color '+(i+1)+' · '+stop.hex+' · '+Math.round(stop.alpha/255*100)+'%';const fill=document.createElement('span');fill.className='swatch-color';fill.style.background=rgbaCSS(stop.hex,stop.alpha);b.append(fill);b.onclick=()=>{selectedGradientStop=i;renderGradientControls()};strip.append(b)});
@@ -1148,7 +1232,7 @@ function validPixelEncoding(obj,size){return (Array.isArray(obj)&&obj.length===s
 $('saveProject').onclick=()=>{
  try{
   const serialize=fs=>fs.map(f=>({duration:f.duration,layers:f.layers.map(encodePixelArray)}));
-  const obj={version:3,width:W,height:H,layerNames,layerVisible,layerLocked,palette,selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops,selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,isoMode,isoGrid,isoWidth,isoHeight,isoColor,isoOpacity,isoSnap,animations:animationTracks.map(t=>({name:t.name,frames:serialize(t.frames)})),characterPack:characterPack?{colors:characterPack.colors}:null,currentAnimation};
+  const obj={version:3,width:W,height:H,layerNames,layerVisible,layerLocked,palette, paletteLibraryId:paletteLibrary.activeId,paletteName:NexusPixelPaletteLibrary.active(paletteLibrary).name,selectedSwatch,selectedSwatchRight,color,alpha,colorEnd,alphaEnd,activeColorSide,randomColorEnabled,gradientStops,selectedGradientStop,radialInvert,animationEnabled,guideGridEnabled,guideCellWidth,guideCellHeight,guideGridColor,guideGridAlpha,isoMode,isoGrid,isoWidth,isoHeight,isoColor,isoOpacity,isoSnap,animations:animationTracks.map(t=>({name:t.name,frames:serialize(t.frames)})),characterPack:characterPack?{colors:characterPack.colors}:null,currentAnimation};
   download(JSON.stringify(obj),'nexus-pixel-project.json','application/json');msg('Proyecto guardado: '+animationTracks.length+' animaciones');
  }catch(err){alert('No se pudo guardar el proyecto: '+err.message)}
 };
@@ -1180,7 +1264,7 @@ $('projectFile').onchange=async e=>{
   layerLocked=Array.isArray(v.layerLocked)&&v.layerLocked.length===layerNames.length?v.layerLocked.map(Boolean):layerNames.map(()=>false);
   setAnimationTracks(decoded,v.currentAnimation);activeLayer=0;undo=[];redo=[];
   characterPack=v.characterPack?.colors?{colors:v.characterPack.colors}:null;
-  if(Array.isArray(v.palette)&&v.palette.length<=128){palette=v.palette.map(normalizeSwatch);selectedSwatch=Number.isInteger(v.selectedSwatch)&&v.selectedSwatch>=0&&v.selectedSwatch<palette.length?v.selectedSwatch:-1;if(selectedSwatch>=0)selectSwatch(selectedSwatch);else renderPalette();}
+  if(Array.isArray(v.palette)&&v.palette.length<=128){importProjectPalette(v)}
   if(typeof v.color==='string'&&/^#[0-9a-fA-F]{6}$/.test(v.color)){color=v.color;alpha=Math.max(0,Math.min(255,Number(v.alpha??255)))}
   if(typeof v.colorEnd==='string'&&/^#[0-9a-fA-F]{6}$/.test(v.colorEnd)){colorEnd=v.colorEnd;alphaEnd=Math.max(0,Math.min(255,Number(v.alphaEnd??255)))}
   selectedSwatchRight=Number.isInteger(v.selectedSwatchRight)?v.selectedSwatchRight:-1;activeColorSide=v.activeColorSide==='right'?'right':'left';
