@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.55** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.56** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -108,7 +108,7 @@ Prueba manual en PC: `/?mobile=1`. Forzar PC en móvil: `/?desktop=1`.
 - Los controles táctiles se implementan solo en `mobile.js`; el mismo
   `app.js` y los formatos JSON continúan compartidos con PC.
 
-## Ventanas modales protegidas (0.2.55)
+## Ventanas modales protegidas (0.2.56)
 
 En PC y móvil, los cuadros **Importar imagen**, **Exportar** y
 **Redimensionar lienzo** no se cierran al hacer clic o tocar fuera de ellos.
@@ -120,3 +120,20 @@ hasta que el usuario la cancele o confirme; el cuadro Exportar mantiene
 el nombre y las opciones mientras permanece abierto.
 
 Ninguna herramienta de dibujo ni formato de proyecto se modificó.
+
+## Protección de ventanas de configuración (0.2.56)
+
+Se añadió `dialog-guard.js` a las interfaces PC y móvil.
+Los diálogos de **Importación**, **Exportación** y **Redimensionado** permanecen
+abiertos aunque se haga clic sobre el fondo o se pulse Esc. Los botones internos
+de cancelar, cerrar y confirmar siguen funcionando.
+
+La protección intercepta manejadores heredados de clic y también puede reabrir
+un cuadro cerrado de forma inesperada sin ejecutar la limpieza de una
+importación pendiente, conservando sus campos y recursos.
+
+El service worker ahora usa **network-first**: con Internet obtiene los recursos
+actuales de GitHub Pages y los cachea; sin Internet recurre a los archivos
+guardados, incluida la interfaz móvil. El nuevo archivo `dialog-guard.js`
+queda precacheado. Esta mejora evita que futuras versiones queden atrapadas
+en la caché anterior.
