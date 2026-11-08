@@ -24,7 +24,7 @@ function combine(chunks){
  return out;
 }
 function validPath(path){
- return path==="library.json"||(/^images\/[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.png$/.test(path));
+ return path==="library.json"||(/^images\/[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.(?:png|gif)$/.test(path));
 }
 function encode(entries){
  if(!Array.isArray(entries)||!entries.length||entries.length>MAX_ENTRIES)throw Error("Número de archivos fuera del límite");

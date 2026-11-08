@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.69** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.70** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -308,3 +308,22 @@ Limitación inicial: al colocar una composición se estampa su vista previa
 en la capa activa; las piezas que la componen quedan conservadas en la
 biblioteca y paquete, pero la edición de cada fragmento individual tras
 insertar se habilitará en una versión posterior.
+
+## Biblioteca gráfica: PNG por fotograma y miniatura GIF (v0.2.70)
+
+- **Imagen normal:** se guarda como PNG plano, con transparencia. Al colocarla se usa el pegado habitual.
+- **Animación:** la fila de animación activa se guarda como una secuencia de PNG
+  planos (se combinan sus capas visibles), manteniendo el orden y los milisegundos
+  por fotograma. La biblioteca enseña una única tarjeta con miniatura GIF en bucle,
+  pero el GIF es **solo una representación de vista previa** (limitada a 112 px y
+  256 colores). Los PNG originales conservan los colores y la transparencia.
+- **Al insertar animación:** se agrega una nueva fila con todos los fotogramas,
+  duraciones y orden, sin eliminar las existentes ni perder el historial Deshacer.
+  Para el pegado, el tamaño del recurso debe caber en el lienzo actual.
+- **Paquetes .nxpack:** el JSON v2 declara `timeline.frames` con rutas PNG,
+  índices, duraciones y nombre de fila; incluye una vista GIF adicional para
+  miniatura, y una imagen PNG del primer fotograma como recurso base.
+- Se conservan las piezas existentes guardadas en IndexedDB y la importación de
+  los paquetes v1 (los anteriores se leen como imágenes planas).
+- Con movimiento reducido activado en el sistema, la tarjeta muestra el primer
+  fotograma estático en lugar de reproducir el GIF.

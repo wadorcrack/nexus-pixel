@@ -416,3 +416,10 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
  .graphic-library-filter small{grid-column:1/-1}
  .graphic-cards{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
 }
+
+/* Biblioteca gráfica: vista previa GIF animada, sin reescalar los píxeles suavemente. */
+.graphic-card-image{position:relative}
+.graphic-animation-mark{position:absolute;right:5px;bottom:5px;
+ padding:3px 6px;border-radius:4px;font-size:10px;font-weight:700;line-height:1.2;
+ background:var(--nx-1d2430,#1d2430);color:var(--nx-5ddcf5,#5ddcf5);
+ border:1px solid var(--nx-435065,#435065);pointer-events:none}

@@ -1486,42 +1486,40 @@ document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.targe
 let mobileTouchCheckpoint=null;
 // Acceso controlado a la biblioteca gráfica: RGBA y posición, sin modificar
 // el documento hasta que el usuario confirme la colocación.
+// Biblioteca gráfica: cada fotograma se aplana conservando alfa, orden y duración.
+// Una pieza animada se inserta como una nueva fila sin sobrescribir las existentes.
 window.NexusPixelGraphicEditor={
  capture(){
-  const visible=frame().layers.map((data,i)=>({data,name:layerNames[i]}))
-   .filter((_,i)=>layerVisible[i]!==false);
-  if(!visible.length)throw Error('No hay capas visibles para guardar');
+  const track=activeTrack();
+  const sourceFrames=track.frames;
+  if(!sourceFrames.length)throw Error('La animación no tiene fotogramas');
+  if(!layerVisible.some(Boolean))throw Error('No hay capas visibles para guardar');
   const mask=selectionMask&&selectionMask.length===W*H?selectionMask:null;
   let minX=W,minY=H,maxX=-1,maxY=-1;
-  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
-   const index=y*W+x;
-   if(mask&&!mask[index])continue;
-   if(visible.some(v=>v.data[index*4+3]>0)){
-    if(x<minX)minX=x;if(y<minY)minY=y;
-    if(x>maxX)maxX=x;if(y>maxY)maxY=y;
-   }
-  }
-  if(maxX<0)throw Error('La selección o el dibujo no contiene píxeles visibles');
-  const width=maxX-minX+1,height=maxY-minY+1,parts=[];
-  for(const visibleLayer of visible){
-   const src=visibleLayer.data;
-   let lx=maxX+1,ly=maxY+1,rx=-1,ry=-1;
-   for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){
-    const i=y*W+x;
-    if((!mask||mask[i])&&src[i*4+3]>0){
-     if(x<lx)lx=x;if(y<ly)ly=y;if(x>rx)rx=x;if(y>ry)ry=y;
+  for(const f of sourceFrames){
+   const composite=compose(f);
+   for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+    const index=y*W+x;
+    if((!mask||mask[index])&&composite[index*4+3]>0){
+     if(x<minX)minX=x;if(y<minY)minY=y;
+     if(x>maxX)maxX=x;if(y>maxY)maxY=y;
     }
    }
-   if(rx<0)continue;
-   const w=rx-lx+1,h=ry-ly+1,rgba=new Uint8ClampedArray(w*h*4);
-   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-    const sourceIndex=(y+ly)*W+x+lx;
-    if(!mask||mask[sourceIndex])
-     rgba.set(src.subarray(sourceIndex*4,sourceIndex*4+4),(y*w+x)*4);
-   }
-   parts.push({name:visibleLayer.name,x:lx-minX,y:ly-minY,width:w,height:h,rgba});
   }
-  return {width,height,parts};
+  if(maxX<0)throw Error('El dibujo o la selección no contiene píxeles visibles');
+  const width=maxX-minX+1,height=maxY-minY+1;
+  if(width*height*4*sourceFrames.length>128*1024*1024)
+   throw Error('La animación supera el límite de 128 MB de píxeles. Reduce su tamaño o fotogramas');
+  const capturedFrames=[];
+  for(const f of sourceFrames){
+   const composite=compose(f),rgba=new Uint8ClampedArray(width*height*4);
+   for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+    const si=(y+minY)*W+(x+minX);
+    if(!mask||mask[si])rgba.set(composite.subarray(si*4,si*4+4),(y*width+x)*4);
+   }
+   capturedFrames.push({rgba,duration:f.duration});
+  }
+  return {width,height,animationName:track.name,frames:capturedFrames};
  },
  place(rgba,width,height){
   if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1
@@ -1535,6 +1533,45 @@ window.NexusPixelGraphicEditor={
    mask:new Uint8Array(width*height).fill(1),
    x:Math.floor((W-width)/2),y:Math.floor((H-height)/2)};
   startPaste();
+ },
+ insertAnimation(importedFrames,width,height,requestedName){
+  if(!Array.isArray(importedFrames)||importedFrames.length<2||importedFrames.length>300)
+   throw Error('La animación debe tener entre 2 y 300 fotogramas');
+  if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1
+     ||width>W||height>H)throw Error('El dibujo animado no cabe en el lienzo actual');
+  if(totalFrameCount()+importedFrames.length>300
+     ||projectBytes(W,H,layerNames.length,totalFrameCount()+importedFrames.length)>MAX_PROJECT_BYTES)
+   throw Error('No hay espacio para todos los fotogramas en este proyecto (máximo 300 y 192 MB)');
+  const targetLayer=layerVisible[activeLayer]!==false&&!layerLocked[activeLayer]
+   ?activeLayer:layerNames.findIndex((_,i)=>layerVisible[i]!==false&&!layerLocked[i]);
+  if(targetLayer<0)throw Error('Necesitas una capa visible y desbloqueada');
+  for(const item of importedFrames){
+   if(!item||!(item.rgba instanceof Uint8ClampedArray)||item.rgba.length!==width*height*4
+      ||!Number.isInteger(item.duration)||item.duration<20||item.duration>5000)
+    throw Error('Fotograma o duración inválidos');
+  }
+  const ox=Math.floor((W-width)/2),oy=Math.floor((H-height)/2);
+  const newFrames=importedFrames.map(item=>{
+   const layers=layerNames.map(blank),dest=layers[targetLayer];
+   for(let y=0;y<height;y++){
+    const source=item.rgba.subarray(y*width*4,(y+1)*width*4);
+    dest.set(source,((oy+y)*W+ox)*4);
+   }
+   return {duration:item.duration,layers};
+  });
+  let base=('Biblioteca · '+String(requestedName||'Animación')).slice(0,40);
+  let name=base;
+  for(let suffix=2;!animationNameUnique(name);suffix++){
+   const tail=' ('+suffix+')';
+   name=base.slice(0,40-tail.length)+tail;
+  }
+  if(playing)togglePlay();
+  if(moveOrigin)endMove(false);
+  snapshot();
+  animationTracks.push({name,frames:newFrames});
+  switchAnimation(name);
+  setAnimationEnabled(true);
+  msg('Animación añadida: '+name+' · '+newFrames.length+' fotogramas');
  }
 };
 window.NexusPixelTouch={
