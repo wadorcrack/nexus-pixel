@@ -363,3 +363,56 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
  .timeline-head{justify-content:flex-start;gap:8px}
  .timeline-control-groups{justify-content:flex-start}
 }
+
+/* Biblioteca gráfica de Nexus Pixel PC · v0.2.69 */
+.graphic-library-launcher{width:100%;margin:0 0 14px;padding:10px 11px;
+ display:flex;align-items:center;gap:10px;text-align:left;
+ background:var(--nx-283242,#283242);border:1px solid var(--nx-435065,#435065);
+ border-radius:9px;color:var(--nx-e7edf8,#e7edf8)}
+.graphic-library-launcher .lucide-icon{color:var(--nx-5ddcf5,#5ddcf5);width:20px;height:20px}
+.graphic-library-launcher strong{flex:1;font-size:12px}
+.graphic-library-chevron{font-size:20px;color:var(--nx-9aafc6,#9aafc6)}
+.graphic-library-dialog{border:1px solid var(--nx-536279,#536279);
+ border-radius:13px;background:var(--nx-1d2430,#1d2430);color:var(--nx-e7edf8,#e7edf8);
+ width:min(840px,calc(100vw - 24px));max-width:840px;max-height:min(88vh,800px);
+ padding:16px;box-shadow:0 22px 74px var(--nx-000b,#000b)}
+.graphic-library-dialog::backdrop{background:rgba(0,0,0,.66)}
+.graphic-library-head{margin-bottom:12px}
+.graphic-library-head h2{font-size:19px}
+.graphic-save-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(130px,1fr) auto;gap:7px}
+.graphic-save-row input,.graphic-library-filter input,.graphic-library-filter select{
+ background:var(--nx-121922,#121922);color:var(--nx-e7edf8,#e7edf8);
+ border:1px solid var(--nx-536279,#536279);border-radius:6px;padding:8px;min-width:0}
+.graphic-commands{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.graphic-commands button{display:flex;align-items:center;gap:6px;font-size:12px}
+.graphic-commands .lucide-icon{height:15px;width:15px}
+.graphic-library-filter{display:grid;grid-template-columns:1fr minmax(140px,.55fr) auto;
+ align-items:center;gap:8px;margin:16px 0 10px}
+.graphic-library-filter small{color:var(--nx-a4b2c5,#a4b2c5);white-space:nowrap}
+.graphic-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+ gap:10px;overflow-y:auto;max-height:390px;min-height:158px;padding:2px}
+.graphic-card{min-width:0;background:var(--nx-212935,#212935);
+ border:1px solid var(--nx-435065,#435065);border-radius:9px;padding:8px;
+ display:flex;flex-direction:column;gap:7px}
+.graphic-card-image{height:122px;border-radius:6px;display:grid;place-items:center;overflow:hidden;
+ background-color:var(--nx-293243,#293243);
+ background-image:repeating-conic-gradient(var(--nx-303845,#303845) 0 25%,var(--nx-212935,#212935) 0 50%);
+ background-size:16px 16px}
+.graphic-card-image img{display:block;width:auto;height:auto;max-width:100%;max-height:100%;
+ object-fit:contain;image-rendering:pixelated}
+.graphic-card-label{display:grid;gap:3px;min-width:0}
+.graphic-card-label strong{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.graphic-card-label small{color:var(--nx-a4b2c5,#a4b2c5);font-size:10px}
+.graphic-card-actions{display:flex;gap:5px;margin-top:auto}
+.graphic-card-actions button{flex:1;min-width:0;padding:6px 4px;font-size:11px}
+.graphic-card-actions .graphic-insert{border-color:var(--nx-55d8f3,#55d8f3)}
+.graphic-card-actions .graphic-remove{flex:0 0 auto}
+.graphic-library-status{min-height:22px;font-size:12px;margin-top:8px;color:var(--nx-7ce7be,#7ce7be)}
+.graphic-library-status.graphic-error{color:var(--nx-ffcdcd,#ffcdcd)}
+.graphic-empty{grid-column:1/-1;text-align:center;color:var(--nx-a4b2c5,#a4b2c5);align-self:center;font-size:12px}
+@media(max-width:650px){
+ .graphic-save-row{grid-template-columns:1fr}
+ .graphic-library-filter{grid-template-columns:1fr 1fr}
+ .graphic-library-filter small{grid-column:1/-1}
+ .graphic-cards{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+}

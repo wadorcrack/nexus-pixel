@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.68** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.69** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -282,3 +282,29 @@ al exportar, el texto introductorio de exportación y la explicación redundante
 de la biblioteca de paletas. Se mantienen títulos, nombres de campos, tooltips
 al pasar el ratón, atributos de accesibilidad, mensajes de estado y
 configuraciones necesarias. No cambian los archivos ni los colores de los dibujos.
+
+## Biblioteca gráfica v1 · PC (0.2.69)
+
+Nueva Biblioteca gráfica con galería de vistas previas. **Guardar dibujo**
+captura todos los píxeles visibles del fotograma actual o solo los de la selección.
+Cada capa visible con contenido se conserva como un fragmento independiente
+con nombre, tamaño y coordenadas; el conjunto se previsualiza como un único
+objeto compuesto. Piezas simples y edificios de varias capas conviven en
+el mismo catálogo. Soporta categorías, búsqueda, eliminación y colocación
+pixel perfect sobre la capa activa, con previsualización en el lienzo,
+Enter no requerido, clic para confirmar, Escape para cancelar y Ctrl+Z
+para deshacer. No modifica colores ni tamaño del lienzo automáticamente.
+
+La biblioteca persiste en **IndexedDB**, separada de los proyectos:
+hasta 256 piezas, máximo 32 fragmentos por pieza y dimensiones 2000×2000.
+El paquete **.nxpack** es un ZIP independiente con `library.json`,
+un PNG por vista previa y los PNG originales de cada fragmento, junto
+a sus posiciones, categorías, nombres y dimensiones. Importación con
+comprobaciones de estructura, dimensiones, tamaño y CRC del ZIP.
+Se importan piezas sin sobrescribir la biblioteca actual. Los archivos
+se exportan sin conexión y pueden reutilizarse en otros proyectos.
+
+Limitación inicial: al colocar una composición se estampa su vista previa
+en la capa activa; las piezas que la componen quedan conservadas en la
+biblioteca y paquete, pero la edición de cada fragmento individual tras
+insertar se habilitará en una versión posterior.

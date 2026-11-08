@@ -1484,6 +1484,59 @@ document.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.targe
 // Punto de retorno del primer dedo. Si aparece otro dedo, se descarta solo
 // el trazo que acababa de empezar para que pellizcar no pinte accidentalmente.
 let mobileTouchCheckpoint=null;
+// Acceso controlado a la biblioteca gráfica: RGBA y posición, sin modificar
+// el documento hasta que el usuario confirme la colocación.
+window.NexusPixelGraphicEditor={
+ capture(){
+  const visible=frame().layers.map((data,i)=>({data,name:layerNames[i]}))
+   .filter((_,i)=>layerVisible[i]!==false);
+  if(!visible.length)throw Error('No hay capas visibles para guardar');
+  const mask=selectionMask&&selectionMask.length===W*H?selectionMask:null;
+  let minX=W,minY=H,maxX=-1,maxY=-1;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+   const index=y*W+x;
+   if(mask&&!mask[index])continue;
+   if(visible.some(v=>v.data[index*4+3]>0)){
+    if(x<minX)minX=x;if(y<minY)minY=y;
+    if(x>maxX)maxX=x;if(y>maxY)maxY=y;
+   }
+  }
+  if(maxX<0)throw Error('La selección o el dibujo no contiene píxeles visibles');
+  const width=maxX-minX+1,height=maxY-minY+1,parts=[];
+  for(const visibleLayer of visible){
+   const src=visibleLayer.data;
+   let lx=maxX+1,ly=maxY+1,rx=-1,ry=-1;
+   for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){
+    const i=y*W+x;
+    if((!mask||mask[i])&&src[i*4+3]>0){
+     if(x<lx)lx=x;if(y<ly)ly=y;if(x>rx)rx=x;if(y>ry)ry=y;
+    }
+   }
+   if(rx<0)continue;
+   const w=rx-lx+1,h=ry-ly+1,rgba=new Uint8ClampedArray(w*h*4);
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const sourceIndex=(y+ly)*W+x+lx;
+    if(!mask||mask[sourceIndex])
+     rgba.set(src.subarray(sourceIndex*4,sourceIndex*4+4),(y*w+x)*4);
+   }
+   parts.push({name:visibleLayer.name,x:lx-minX,y:ly-minY,width:w,height:h,rgba});
+  }
+  return {width,height,parts};
+ },
+ place(rgba,width,height){
+  if(!Number.isInteger(width)||!Number.isInteger(height)||width<1||height<1
+     ||!(rgba instanceof Uint8ClampedArray)||rgba.length!==width*height*4)
+   throw Error('Píxeles de biblioteca inválidos');
+  if(width>W||height>H)throw Error('La pieza es más grande que el lienzo; amplía el lienzo para insertarla completa');
+  if(layerLocked[activeLayer]||layerVisible[activeLayer]===false)
+   throw Error('Selecciona una capa visible y desbloqueada');
+  if(playing)togglePlay();
+  pixelClipboard={width,height,data:new Uint8ClampedArray(rgba),
+   mask:new Uint8Array(width*height).fill(1),
+   x:Math.floor((W-width)/2),y:Math.floor((H-height)/2)};
+  startPaste();
+ }
+};
 window.NexusPixelTouch={
  setPaintSide(side){mobilePaintSide=side==='right'?'right':'left'},
  getPaintSide(){return mobilePaintSide},
