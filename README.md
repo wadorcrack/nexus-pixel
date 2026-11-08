@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.70** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.71** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -327,3 +327,18 @@ insertar se habilitará en una versión posterior.
   los paquetes v1 (los anteriores se leen como imágenes planas).
 - Con movimiento reducido activado en el sistema, la tarjeta muestra el primer
   fotograma estático en lugar de reproducir el GIF.
+
+## Pegado centrado y volteos (0.2.71)
+
+- El objeto que se coloca desde la Biblioteca Gráfica o desde Ctrl+V
+  sigue el **centro del puntero**, no su esquina superior izquierda.
+  Al acercarse al borde se ajusta para no recortar el objeto.
+- Dos botones de **Voltear horizontal** y **Voltear vertical** junto a
+  Deshacer/Rehacer. Mientras hay un pegado pendiente, voltean solo el
+  objeto que se está previsualizando; se conserva la transparencia,
+  las máscaras de selección y el punto central. Esc cancela.
+- Sin pegado pendiente, los botones voltean el contenido de la capa
+  activa alrededor de los píxeles no transparentes, o de los límites
+  de la selección si existe. El cambio queda en el historial Ctrl+Z.
+- El volteo del lienzo no altera automáticamente otras capas ni otras
+  filas o fotogramas de animación.

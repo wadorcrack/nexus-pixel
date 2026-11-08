@@ -1,4 +1,4 @@
-const NEXUS_LUCIDE_ICONS={'move':'<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><path d="m8 8 8 8m0-8-8 8"/>','pencil': '<path d="m18 2 4 4-14 14-6 2 2-6L18 2Z"/><path d="m14.5 5.5 4 4"/>', 'eraser': '<path d="m7 21-4-4a2 2 0 0 1 0-3l10-10a2 2 0 0 1 3 0l5 5a2 2 0 0 1 0 3l-9 9H7Z"/><path d="m5 12 7 7M12 21h9"/>', 'paint-bucket': '<path d="m3 3 8 8"/><path d="m12 2 9 9-9 9-9-9 9-9Z"/><path d="M2 21h17"/><path d="M20 16c0 1.5 1 2.5 2 3.5-.5.7-1.2 1-2 1s-1.5-.3-2-1c1-1 2-2 2-3.5Z"/>', 'pipette': '<path d="m2 22 1-5L17 3a3 3 0 0 1 4 4L7 21l-5 1Z"/><path d="m14 6 4 4"/>', 'minus': '<path d="M5 12h14"/>', 'square': '<rect x="4" y="4" width="16" height="16" rx="1"/>', 'circle': '<circle cx="12" cy="12" r="9"/>', 'undo-2': '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/>', 'redo-2': '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h2"/>', 'file-plus': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 12v6m-3-3h6"/>', 'save': '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/>', 'folder-open': '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2"/><path d="M3 20a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2l2-8H5l-2 8Z"/>', 'image': '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>', 'film': '<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 8h5m-5 8h5m10-8h5m-5 8h5"/>', 'clapperboard': '<path d="M4 11h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"/><path d="m3 11-1-6 18-3 1 6-18 3Zm5-7 3 6m4-7 3 6"/>', 'play': '<path d="m8 5 12 7-12 7V5Z"/>', 'plus': '<path d="M12 5v14M5 12h14"/>', 'copy': '<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>', 'trash-2': '<path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m5 4v7m4-7v7"/>', 'layers': '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>', 'maximize': '<path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/>', 'download': '<path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/>', 'x': '<path d="M18 6 6 18M6 6l12 12"/>', 'check': '<path d="m5 12 4 4L19 6"/>', 'eye': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>', 'eye-off': '<path d="M3 3l18 18M10.6 5.1A11 11 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-3.2 4.1M6.3 6.5C3.4 8.5 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.3-.9"/>', 'lock': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>', 'lock-open': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/>', 'blend': '<circle cx="9" cy="12" r="8"/><path d="M9 4a8 8 0 0 1 0 16"/><path d="M9 4v16"/>', 'iso-diamond':'<path d="M12 3 22 12 12 21 2 12 12 3Z"/><path d="M2 12h20"/>', 'radial': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>', 'refresh-cw': '<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.5 15"/>', 'sparkles': '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Zm7 13 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/>', 'selection-rect': '<rect x="4" y="4" width="16" height="16" rx="1" stroke-dasharray="3 2"/><path d="M9 9h6v6H9z"/>', 'lasso': '<path d="M4 10c0-3 3-6 8-6s8 3 8 6-3 6-8 6c-1.7 0-3.3-.4-4.6-1.1L4 20v-4.3A6.5 6.5 0 0 1 4 10Z" stroke-dasharray="3 2"/><circle cx="12" cy="10" r="1"/>', 'arrow-up': '<path d="M12 19V5m-7 7 7-7 7 7"/>', 'arrow-down': '<path d="M12 5v14m-7-7 7 7 7-7"/>', 'spray-can': '<path d="M6 9h7a2 2 0 0 1 2 2v9H8a2 2 0 0 1-2-2V9Z"/><path d="M9 4h4v3H9zM15 10l4-2"/><path d="M18 5h.01M20 8h.01M17 8h.01M19 11h.01"/>'};
+const NEXUS_LUCIDE_ICONS={'move':'<path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4"/><path d="m8 8 8 8m0-8-8 8"/>','pencil': '<path d="m18 2 4 4-14 14-6 2 2-6L18 2Z"/><path d="m14.5 5.5 4 4"/>', 'eraser': '<path d="m7 21-4-4a2 2 0 0 1 0-3l10-10a2 2 0 0 1 3 0l5 5a2 2 0 0 1 0 3l-9 9H7Z"/><path d="m5 12 7 7M12 21h9"/>', 'paint-bucket': '<path d="m3 3 8 8"/><path d="m12 2 9 9-9 9-9-9 9-9Z"/><path d="M2 21h17"/><path d="M20 16c0 1.5 1 2.5 2 3.5-.5.7-1.2 1-2 1s-1.5-.3-2-1c1-1 2-2 2-3.5Z"/>', 'pipette': '<path d="m2 22 1-5L17 3a3 3 0 0 1 4 4L7 21l-5 1Z"/><path d="m14 6 4 4"/>', 'minus': '<path d="M5 12h14"/>', 'square': '<rect x="4" y="4" width="16" height="16" rx="1"/>', 'circle': '<circle cx="12" cy="12" r="9"/>', 'undo-2': '<path d="M9 14 4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-2"/>', 'redo-2': '<path d="m15 14 5-5-5-5"/><path d="M20 9H10a6 6 0 0 0 0 12h2"/>', 'file-plus': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M12 12v6m-3-3h6"/>', 'save': '<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/>', 'folder-open': '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v2"/><path d="M3 20a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2l2-8H5l-2 8Z"/>', 'image': '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>', 'film': '<rect x="2" y="3" width="20" height="18" rx="2"/><path d="M7 3v18M17 3v18M2 8h5m-5 8h5m10-8h5m-5 8h5"/>', 'clapperboard': '<path d="M4 11h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z"/><path d="m3 11-1-6 18-3 1 6-18 3Zm5-7 3 6m4-7 3 6"/>', 'play': '<path d="m8 5 12 7-12 7V5Z"/>', 'plus': '<path d="M12 5v14M5 12h14"/>', 'copy': '<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>', 'trash-2': '<path d="M3 6h18M8 6V4h8v2m3 0-1 15H6L5 6m5 4v7m4-7v7"/>', 'layers': '<path d="m12 2 9 5-9 5-9-5 9-5Zm-9 10 9 5 9-5M3 17l9 5 9-5"/>', 'maximize': '<path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/>', 'download': '<path d="M12 3v12m-5-5 5 5 5-5M5 17v4h14v-4"/>', 'x': '<path d="M18 6 6 18M6 6l12 12"/>', 'check': '<path d="m5 12 4 4L19 6"/>', 'eye': '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>', 'eye-off': '<path d="M3 3l18 18M10.6 5.1A11 11 0 0 1 12 5c6.5 0 10 7 10 7a16 16 0 0 1-3.2 4.1M6.3 6.5C3.4 8.5 2 12 2 12s3.5 7 10 7a10 10 0 0 0 4.3-.9"/>', 'lock': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>', 'lock-open': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/>', 'blend': '<circle cx="9" cy="12" r="8"/><path d="M9 4a8 8 0 0 1 0 16"/><path d="M9 4v16"/>', 'iso-diamond':'<path d="M12 3 22 12 12 21 2 12 12 3Z"/><path d="M2 12h20"/>', 'radial': '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>', 'refresh-cw': '<path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9A7 7 0 0 1 18 6.5L20 12M4 12l2 5.5A7 7 0 0 0 18.5 15"/>', 'sparkles': '<path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Zm7 13 .9 2.1L22 19l-2.1.9L19 22l-.9-2.1L16 19l2.1-.9L19 16Z"/>', 'selection-rect': '<rect x="4" y="4" width="16" height="16" rx="1" stroke-dasharray="3 2"/><path d="M9 9h6v6H9z"/>', 'lasso': '<path d="M4 10c0-3 3-6 8-6s8 3 8 6-3 6-8 6c-1.7 0-3.3-.4-4.6-1.1L4 20v-4.3A6.5 6.5 0 0 1 4 10Z" stroke-dasharray="3 2"/><circle cx="12" cy="10" r="1"/>', 'arrow-up': '<path d="M12 19V5m-7 7 7-7 7 7"/>', 'arrow-down': '<path d="M12 5v14m-7-7 7 7 7-7"/>', 'spray-can': '<path d="M6 9h7a2 2 0 0 1 2 2v9H8a2 2 0 0 1-2-2V9Z"/><path d="M9 4h4v3H9zM15 10l4-2"/><path d="M18 5h.01M20 8h.01M17 8h.01M19 11h.01"/>', 'flip-horizontal': '<rect x="4" y="5" width="16" height="14" rx="1"/><path d="M12 2v20" stroke-dasharray="3 2"/><path d="m9 9-3 3 3 3m6-6 3 3-3 3"/>', 'flip-vertical': '<rect x="5" y="4" width="14" height="16" rx="1"/><path d="M2 12h20" stroke-dasharray="3 2"/><path d="m9 9 3-3 3 3m-3 6 3 3 3-3"/>'};
 function nexusIcon(name){return `<svg class="lucide-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${NEXUS_LUCIDE_ICONS[name]||NEXUS_LUCIDE_ICONS.square}</svg>`}
 
 (()=>{'use strict';
@@ -209,12 +209,76 @@ function previewPastedPixels(z){
  oc.setLineDash([4,3]);oc.strokeRect(ox*z+.5,oy*z+.5,clip.width*z,clip.height*z);
  oc.restore();
 }
+// Centro geométrico como punto de anclaje del objeto bajo el puntero.
+// Se limita la posición para evitar recortar el pegado en los bordes.
+function pasteAtPointer(point,clip){
+ return {
+  x:Math.max(0,Math.min(W-clip.width,point.x-Math.floor(clip.width/2))),
+  y:Math.max(0,Math.min(H-clip.height,point.y-Math.floor(clip.height/2)))
+ };
+}
+function flipClipboard(axis){
+ const clip=pixelClipboard,{width,height,data,mask}=clip;
+ const pixels=new Uint8ClampedArray(data.length),bits=new Uint8Array(mask.length);
+ for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+  const source=y*width+x;
+  const tx=axis==='horizontal'?width-1-x:x;
+  const ty=axis==='vertical'?height-1-y:y;
+  const dest=ty*width+tx;
+  pixels.set(data.subarray(source*4,source*4+4),dest*4);
+  bits[dest]=mask[source];
+ }
+ clip.data=pixels;clip.mask=bits;
+ // La vista previa cacheada pertenece a los píxeles anteriores.
+ delete clip.previewCanvas;
+ draw();
+ msg(axis==='horizontal'?'Pegado volteado horizontalmente':'Pegado volteado verticalmente');
+}
+function flipLayer(axis){
+ if(layerLocked[activeLayer]||layerVisible[activeLayer]===false){
+  msg('La capa está bloqueada u oculta');return;
+ }
+ const original=layer(),selectedMask=selectionMask&&selectionMask.length===W*H?selectionMask:null;
+ let minX=W,minY=H,maxX=-1,maxY=-1;
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+  const index=y*W+x;
+  if(selectedMask?!selectedMask[index]:original[index*4+3]===0)continue;
+  minX=Math.min(minX,x);minY=Math.min(minY,y);
+  maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);
+ }
+ if(maxX<0){msg(selectedMask?'La selección está vacía':'La capa no contiene píxeles para voltear');return}
+ const copy=new Uint8ClampedArray(original),newMask=selectedMask?new Uint8Array(W*H):null;
+ if(selectedMask){
+  for(let i=0;i<selectedMask.length;i++)if(selectedMask[i])copy.fill(0,i*4,i*4+4);
+ }
+ // Espejar alrededor del rectángulo de la selección o de los píxeles visibles.
+ for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){
+  const source=y*W+x;
+  if(selectedMask&&!selectedMask[source])continue;
+  const dx=axis==='horizontal'?minX+maxX-x:x;
+  const dy=axis==='vertical'?minY+maxY-y:y;
+  const target=dy*W+dx;
+  copy.set(original.subarray(source*4,source*4+4),target*4);
+  if(newMask)newMask[target]=1;
+ }
+ snapshot();
+ original.set(copy);
+ if(newMask){selectionMask=newMask;selectionPreview=null;syncSelectionControls()}
+ refresh();
+ msg(axis==='horizontal'?'Capa volteada horizontalmente · Ctrl+Z':'Capa volteada verticalmente · Ctrl+Z');
+}
+function flipArtwork(axis){
+ if(pastePlacement&&pixelClipboard){flipClipboard(axis);return}
+ flipLayer(axis);
+}
+$('flipHorizontal').onclick=()=>flipArtwork('horizontal');
+$('flipVertical').onclick=()=>flipArtwork('vertical');
 function startPaste(){
  if(!pixelClipboard){msg('No hay píxeles copiados');return}
  if(layerLocked[activeLayer]||layerVisible[activeLayer]===false){
    msg('Desbloquea y muestra la capa antes de pegar');return;
  }
- pastePlacement={x:pixelClipboard.x,y:pixelClipboard.y};
+ pastePlacement={x:Math.max(0,Math.min(W-pixelClipboard.width,pixelClipboard.x)),y:Math.max(0,Math.min(H-pixelClipboard.height,pixelClipboard.y))};
  resetSelection();
  draw();
  msg('Mueve el puntero para colocar y haz clic para pegar; Esc cancela');
@@ -626,7 +690,7 @@ function applyGradient(x0,y0,x1,y1,kind){
 }
 function sprayAt(cx0,cy0){const dst=layer();const col=paintColor();for(let i=0;i<sprayDensity;i++){const ang=Math.random()*Math.PI*2;const dist=Math.sqrt(Math.random())*sprayRadius;const x=Math.round(cx0+Math.cos(ang)*dist),y=Math.round(cy0+Math.sin(ang)*dist);strokeBlendPixel(dst,x,y,col);if(mirror)strokeBlendPixel(dst,W-1-x,y,col)}}
 function position(e){const b=canvas.getBoundingClientRect();return {x:Math.max(0,Math.min(W-1,Math.floor((e.clientX-b.left)/b.width*W))),y:Math.max(0,Math.min(H-1,Math.floor((e.clientY-b.top)/b.height*H)))}}
-canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button!==0&&e.button!==2)||panPointer||(e.pointerType==='touch'&&mobilePanEnabled))return;if(pastePlacement){if(e.button===0)commitPaste();return}strokeSide=e.pointerType==='touch'?mobilePaintSide:(e.button===2?'right':'left');if(playing)togglePlay();const p=position(e);if(tool==='move'){
+canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button!==0&&e.button!==2)||panPointer||(e.pointerType==='touch'&&mobilePanEnabled))return;if(pastePlacement){if(e.button===0){pastePlacement=pasteAtPointer(position(e),pixelClipboard);commitPaste()}return}strokeSide=e.pointerType==='touch'?mobilePaintSide:(e.button===2?'right':'left');if(playing)togglePlay();const p=position(e);if(tool==='move'){
  if(e.button!==0)return;
  // Solo mover las capas seleccionadas que son visibles y desbloqueadas.
  const targets=[...selectedLayers].filter(i=>i>=0&&i<frame().layers.length&&layerVisible[i]!==false&&layerLocked[i]!==true);
@@ -636,7 +700,7 @@ canvas.oncontextmenu=e=>e.preventDefault();canvas.onpointerdown=e=>{if((e.button
  moveOrigin=p;dragging=true;start=last=p;canvas.setPointerCapture(e.pointerId);
  return;
  }if(tool==='picker'){const d=compose(frame()),i=(p.y*W+p.x)*4;if(d[i+3]){selectColor('#'+Array.from(d.slice(i,i+3)).map(n=>n.toString(16).padStart(2,'0')).join(''));setAlpha(d[i+3])}return}if(tool==='select-magic'){if(e.button===2)return;const newMask=buildMagicMask(layer(),p.x,p.y);selectionMask=combineSelectionMasks(selectionMask,newMask,!!e.shiftKey);selectionPreview=null;syncSelectionControls();draw();msg('Selección mágica: '+selectionCount(selectionMask)+' px');return}if(tool==='select-rect'){if(e.button===2)return;dragging=true;start=last=p;selectionAddMode=!!e.shiftKey;selectionPreview={type:'rect',x0:p.x,y0:p.y,x1:p.x,y1:p.y};canvas.setPointerCapture(e.pointerId);draw();return}if(tool==='select-lasso'){if(e.button===2)return;dragging=true;start=last=p;selectionAddMode=!!e.shiftKey;lassoPoints=[p];selectionPreview={type:'lasso',points:[...lassoPoints]};canvas.setPointerCapture(e.pointerId);draw();return}if(shouldRandomizeColor(tool)){const side=strokeSide,val=sideValues(side);assignSide(side,randomHexColor(),val.alpha,-1)}if(layerLocked[activeLayer]){msg('Capa bloqueada: desbloquéala para editar');return}if(layerVisible[activeLayer]===false){msg('Capa oculta: muéstrala para editar');return}snapshot();dragging=true;canvas.setPointerCapture(e.pointerId);start=last=p;lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='pencil'||tool==='spray')beginPaintStroke();else endPaintStroke();if(tool==='fill'){fill(p.x,p.y);dragging=false;endPaintStroke();refresh()}else if(tool==='pencil'||tool==='eraser'){put(p.x,p.y,tool==='eraser');draw()}else if(tool==='spray'){sprayAt(p.x,p.y);draw()}};
-canvas.onpointermove=e=>{if(pastePlacement&&!panPointer){const p=position(e);pastePlacement.x=p.x;pastePlacement.y=p.y;draw();return}if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);return}if(tool==='select-rect'){selectionPreview={type:'rect',x0:start.x,y0:start.y,x1:p.x,y1:p.y};draw();return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));last=p;selectionPreview={type:'lasso',points:[...lassoPoints]};draw();return}if(tool==='spray'){sprayAt(p.x,p.y);last=p;draw();return}if(tool==='pencil'||tool==='eraser'){line(last.x,last.y,p.x,p.y,(x,y)=>put(x,y,tool==='eraser'));last=p;draw()}else{lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='rect'||tool==='ellipse'||tool==='iso-diamond'){renderShapePreview(p,shapeShiftHeld)}else{const save=new Uint8ClampedArray(layer());if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else{const end=snapIsometricLine(p);shape(start.x,start.y,end.x,end.y,tool)}preview=new Uint8ClampedArray(compose(frame()));layer().set(save);draw();preview=null}}};
+canvas.onpointermove=e=>{if(pastePlacement&&!panPointer){pastePlacement=pasteAtPointer(position(e),pixelClipboard);draw();return}if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);return}if(tool==='select-rect'){selectionPreview={type:'rect',x0:start.x,y0:start.y,x1:p.x,y1:p.y};draw();return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));last=p;selectionPreview={type:'lasso',points:[...lassoPoints]};draw();return}if(tool==='spray'){sprayAt(p.x,p.y);last=p;draw();return}if(tool==='pencil'||tool==='eraser'){line(last.x,last.y,p.x,p.y,(x,y)=>put(x,y,tool==='eraser'));last=p;draw()}else{lastShapePointer=p;shapeShiftHeld=!!e.shiftKey;if(tool==='rect'||tool==='ellipse'||tool==='iso-diamond'){renderShapePreview(p,shapeShiftHeld)}else{const save=new Uint8ClampedArray(layer());if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else{const end=snapIsometricLine(p);shape(start.x,start.y,end.x,end.y,tool)}preview=new Uint8ClampedArray(compose(frame()));layer().set(save);draw();preview=null}}};
 canvas.onpointerup=e=>{if(!dragging||panPointer)return;const p=position(e);if(tool==='move'){updateMovePreview(p,e.shiftKey);const count=moveLayers.length;endMove(true);msg(count===1?'Capa movida':count+' capas movidas');return}if(tool==='select-rect'){const newMask=buildRectMask(start.x,start.y,p.x,p.y);selectionMask=combineSelectionMasks(selectionMask,newMask,selectionAddMode||!!e.shiftKey);selectionPreview=null;dragging=false;selectionAddMode=false;syncSelectionControls();draw();msg('Selección rectangular: '+selectionCount(selectionMask)+' px');return}if(tool==='select-lasso'){let pts=[];line(last.x,last.y,p.x,p.y,(x,y)=>pts.push({x,y}));lassoPoints.push(...pts.slice(1));const newMask=buildPolygonMask(lassoPoints);selectionMask=combineSelectionMasks(selectionMask,newMask,selectionAddMode||!!e.shiftKey);selectionPreview=null;dragging=false;selectionAddMode=false;syncSelectionControls();draw();msg('Selección libre: '+selectionCount(selectionMask)+' px');return}if(tool==='spray'){dragging=false;endPaintStroke();preview=null;refresh();return}if(tool.startsWith('gradient-'))applyGradient(start.x,start.y,p.x,p.y,tool);else if(['line','rect','ellipse','iso-diamond'].includes(tool)){const end=tool==='line'?snapIsometricLine(p):squareShapeEnd(p,!!e.shiftKey||shapeShiftHeld);shape(start.x,start.y,end.x,end.y,tool)}dragging=false;lastShapePointer=null;shapeShiftHeld=false;endPaintStroke();preview=null;refresh()};
 canvas.onpointercancel=()=>{selectionAddMode=false;if(moveOrigin){endMove(false);return}dragging=false;lastShapePointer=null;shapeShiftHeld=false;endPaintStroke();preview=null;selectionPreview=null;refresh()};
 function normalizeSwatch(v){

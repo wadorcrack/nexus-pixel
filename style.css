@@ -423,3 +423,6 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
  padding:3px 6px;border-radius:4px;font-size:10px;font-weight:700;line-height:1.2;
  background:var(--nx-1d2430,#1d2430);color:var(--nx-5ddcf5,#5ddcf5);
  border:1px solid var(--nx-435065,#435065);pointer-events:none}
+
+/* 0.2.71: herramientas de volteo junto a Deshacer / Rehacer. */
+.edit-buttons #flipHorizontal,.edit-buttons #flipVertical{flex-shrink:0}
