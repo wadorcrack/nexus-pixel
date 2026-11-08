@@ -255,7 +255,7 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 .iso-grid-fields input[type=color]{width:100%;min-height:33px}
 .iso-grid-fields input[type=range]{width:100%}
 .iso-grid-fields output{font-size:11px}
-.iso-note{margin:0;font-size:11px;color:var(--nx-a4b2c5,#a4b2c5);line-height:1.45}
+
 .iso-mode-toggle{padding:4px 0}
 .iso-mode-toggle input{accent-color:#0f91b4}
 
@@ -334,7 +334,7 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 }
 
 /* 0.2.63 — selección de varias capas (PC y móvil). */
-.layer-selection-help{font-size:10px;line-height:1.4;color:var(--nx-a4b2c5,#a4b2c5);margin:5px 0 8px}
+
 .layer.multi-selected{box-shadow:inset 3px 0 0 var(--nx-74c0f4,#74c0f4);border-color:var(--nx-6c9bc7,#6c9bc7)}
 .layer.multi-selected.active{border-color:var(--nx-4dd8f8,#4dd8f8);background:var(--nx-16495e,#16495e)}
 .layer .layer-select-multi{flex:0 0 15px;width:15px;height:15px;min-width:15px;min-height:15px;margin:0 3px 0 0;

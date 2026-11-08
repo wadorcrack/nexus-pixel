@@ -1,6 +1,6 @@
-// Nexus Pixel 0.2.67: preferir contenido actualizado en línea,
+// Nexus Pixel 0.2.68: preferir contenido actualizado en línea,
 // conservando solo el editor PC para uso sin Internet.
-const CACHE_NAME = "nexus-pixel-v0.2.67";
+const CACHE_NAME = "nexus-pixel-v0.2.68";
 const ASSETS = [
   "./", "./index.html", "./style.css", "./theme.css", "./theme.js",
   "./app.js", "./palette-library.js", "./iso-geometry.js", "./dialog-guard.js", "./tooltip.js", "./pwa.js",

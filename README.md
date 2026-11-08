@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.67** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.68** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -272,3 +272,13 @@ activos, paletas y fotogramas emplean el mismo azul petróleo. Se conservan las
 señales semánticas (naranja para el color secundario, rojo para alertas,
 verde para éxito), el tema oscuro y todos los colores del lienzo y recursos.
 El tema claro también ajusta el color de la barra del navegador.
+
+## Limpieza de textos de ayuda en PC (0.2.68)
+
+Se eliminaron los textos instructivos que ocupaban espacio permanente en la interfaz:
+la explicación de selección con Shift, el párrafo isométrico, la nota de selección
+de capas (incluida la referencia obsoleta a móvil), el aviso sobre extensiones
+al exportar, el texto introductorio de exportación y la explicación redundante
+de la biblioteca de paletas. Se mantienen títulos, nombres de campos, tooltips
+al pasar el ratón, atributos de accesibilidad, mensajes de estado y
+configuraciones necesarias. No cambian los archivos ni los colores de los dibujos.

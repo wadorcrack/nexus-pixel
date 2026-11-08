@@ -1294,7 +1294,6 @@ $('confirmImport').onclick=()=>{
 function setSheetExportView(showSettings){
  $('sheetExportSettings').hidden=!showSettings;
  document.querySelector('#exportDialog .export-options').hidden=showSettings;
- $('exportIntro').hidden=showSettings;
  $('exportTitle').textContent=showSettings?'Exportar spritesheet':'Exportar imagen o animación';
  if(showSettings)updateSheetExportPreview();
 }
