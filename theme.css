@@ -1,151 +1,162 @@
-/* Tema claro: solo se transforman colores de la interfaz, no los del dibujo. */
+/* Tema claro de contraste moderado. Tokens de interfaz, no de la imagen. */
 :root[data-theme="light"] {
   color-scheme:light;
-  --nx-777: #777777;
-  --nx-121922: #ffffff;
-  --nx-141922: #ffffff;
-  --nx-182231: #f0f5fa;
-  --nx-182433: #eff4f9;
-  --nx-202835: #e8eff7;
-  --nx-202938: #ecf2f8;
-  --nx-212935: #f6f9fd;
-  --nx-273343: #e9f0f8;
-  --nx-283242: #e6eef7;
-  --nx-293243: #e1eaf3;
-  --nx-303845: #d8e3ee;
-  --nx-334458: #dbe7f1;
-  --nx-344153: #e1ebf5;
-  --nx-344255: #d5e2ee;
-  --nx-354252: #d3e0ed;
-  --nx-354457: #b1c4d5;
-  --nx-364052: #d3e0ed;
-  --nx-374455: #b1c4d5;
-  --nx-384152: #d3e0ed;
-  --nx-384558: #b1c4d5;
-  --nx-435065: #b1c4d5;
-  --nx-435368: #b1c4d5;
-  --nx-455468: #b1c4d5;
-  --nx-455971: #b1c4d5;
-  --nx-465064: #b1c4d5;
-  --nx-526175: #b1c4d5;
-  --nx-536279: #8096aa;
-  --nx-596372: #8096aa;
-  --nx-596579: #8096aa;
-  --nx-708094: #8096aa;
-  --nx-0008: #0008;
-  --nx-0009: #0009;
-  --nx-000a: #000a;
-  --nx-000b: #000b;
-  --nx-080d15: #ffffff;
-  --nx-11151c: #f8fafc;
-  --nx-121a26: #ffffff;
-  --nx-13739a: #cceefa;
-  --nx-141e2b: #ffffff;
-  --nx-151d29: #ffffff;
-  --nx-152e3b: #e5f3f8;
-  --nx-15536b: #d2edf8;
-  --nx-16202a: #f2f7fb;
-  --nx-16495e: #d4f1fa;
-  --nx-164a60: #d9f2f9;
-  --nx-164e65: #d4effa;
-  --nx-171d26: #e8edf4;
-  --nx-172131ed: #ffffffed;
-  --nx-172c3a: #eff4f8;
-  --nx-174c64: #d2edf8;
-  --nx-17627b: #d6f1f9;
-  --nx-176b84: #d1edf6;
-  --nx-18495d: #d4effa;
-  --nx-1b2632: #e9f1f9;
-  --nx-1b2634: #e9f1f9;
-  --nx-1d2430: #eff4f9;
-  --nx-1d2736: #eff4f9;
-  --nx-203e50: #e3f2fa;
-  --nx-222c3a: #f0f5fb;
-  --nx-242e3e: #e7eff8;
-  --nx-252f3e: #edf3f9;
-  --nx-2a3546: #e8f0f8;
-  --nx-303d4e: #deebf4;
-  --nx-36bfdc: #097d9b;
-  --nx-37475b: #b1c4d5;
+  --nx-light-bg: #d0dbe5;
+  --nx-light-panel: #dce5ed;
+  --nx-light-raised: #e6edf3;
+  --nx-light-text: #273b4f;
+  --nx-light-muted: #4e6276;
+  --nx-light-accent: #116481;
+  --nx-light-accent-hover: #0b4f69;
+  --nx-light-accent-soft: #c5e0ea;
+  --nx-light-accent-border: #116481;
+  --nx-light-tooltip: #24394b;
+  --nx-light-success: #206b51;
+  --nx-777: #748695;
+  --nx-121922: var(--nx-light-raised);
+  --nx-141922: var(--nx-light-raised);
+  --nx-182231: var(--nx-light-panel);
+  --nx-182433: var(--nx-light-panel);
+  --nx-202835: #d7e2eb;
+  --nx-202938: var(--nx-light-panel);
+  --nx-212935: #c3d0da;
+  --nx-273343: #d7e2eb;
+  --nx-283242: #d7e2eb;
+  --nx-293243: var(--nx-light-raised);
+  --nx-303845: #a6b6c4;
+  --nx-334458: #d7e2eb;
+  --nx-344153: #d7e2eb;
+  --nx-344255: #d7e2eb;
+  --nx-354252: #d7e2eb;
+  --nx-354457: #9fafbf;
+  --nx-364052: #d7e2eb;
+  --nx-374455: #9fafbf;
+  --nx-384152: #9fafbf;
+  --nx-384558: #9fafbf;
+  --nx-435065: #9fafbf;
+  --nx-435368: #9fafbf;
+  --nx-455468: #9fafbf;
+  --nx-455971: #9fafbf;
+  --nx-465064: #9fafbf;
+  --nx-526175: #9fafbf;
+  --nx-536279: #8299aa;
+  --nx-596372: #9fafbf;
+  --nx-596579: #9fafbf;
+  --nx-708094: #9fafbf;
+  --nx-0008: rgba(29,49,67,.17);
+  --nx-0009: rgba(29,49,67,.20);
+  --nx-000a: rgba(29,49,67,.24);
+  --nx-000b: rgba(29,49,67,.28);
+  --nx-080d15: var(--nx-light-tooltip);
+  --nx-11151c: var(--nx-light-bg);
+  --nx-121a26: #edf2f6;
+  --nx-13739a: #c5e0ea;
+  --nx-141e2b: var(--nx-light-raised);
+  --nx-151d29: var(--nx-light-raised);
+  --nx-152e3b: #c5e0ea;
+  --nx-15536b: #c5e0ea;
+  --nx-16202a: #edf2f6;
+  --nx-16495e: #c5e0ea;
+  --nx-164a60: #c5e0ea;
+  --nx-164e65: #c5e0ea;
+  --nx-171d26: #b4c3cf;
+  --nx-172131ed: rgba(220,230,238,.94);
+  --nx-172c3a: var(--nx-light-panel);
+  --nx-174c64: #c5e0ea;
+  --nx-17627b: #c5e0ea;
+  --nx-176b84: #c5e0ea;
+  --nx-18495d: #c5e0ea;
+  --nx-1b2632: var(--nx-light-panel);
+  --nx-1b2634: var(--nx-light-panel);
+  --nx-1d2430: var(--nx-light-panel);
+  --nx-1d2736: var(--nx-light-panel);
+  --nx-203e50: #c5e0ea;
+  --nx-222c3a: var(--nx-light-raised);
+  --nx-242e3e: #d7e2eb;
+  --nx-252f3e: #d7e2eb;
+  --nx-2a3546: #d7e2eb;
+  --nx-303d4e: #d7e2eb;
+  --nx-36bfdc: var(--nx-light-accent);
+  --nx-37475b: #9fafbf;
   --nx-38bdf8: #38bdf8;
-  --nx-3b4c61: #b1c4d5;
-  --nx-3d4b63: #d5e3ef;
-  --nx-3e7084: #b2d5e1;
-  --nx-41272a: #fff0f1;
-  --nx-42d3ef: #08799a;
-  --nx-435a70: #b1c4d5;
-  --nx-43c9e5: #157e9b;
-  --nx-45546b: #b1c4d5;
-  --nx-48caee: #117b9e;
-  --nx-48cfe9: #116e93;
-  --nx-49576c: #b1c4d5;
-  --nx-4b5a6d: #b1c4d5;
-  --nx-4b6479: #b1c4d5;
-  --nx-4bcde8: #116e93;
-  --nx-4dd8f8: #087b9e;
-  --nx-50bfd8: #116e93;
-  --nx-50d5f2: #087d9c;
-  --nx-51627a: #8096aa;
-  --nx-51c7e6: #137c9e;
-  --nx-51d4f4: #087c9c;
-  --nx-52677d: #8096aa;
-  --nx-54667b: #8096aa;
-  --nx-55657a: #8096aa;
-  --nx-55d8f3: #077e9f;
-  --nx-56677b: #8096aa;
-  --nx-58d7f3: #087c9b;
-  --nx-5b738b: #8096aa;
-  --nx-5b7791: #8096aa;
-  --nx-5bd9f2: #087c9c;
-  --nx-5ddcf5: #087a99;
-  --nx-5ed8ef: #087c9c;
-  --nx-61d9ef: #0b779b;
-  --nx-62e0fb: #05799a;
-  --nx-6adff4: #0b7799;
-  --nx-743a4c: #ffe8ed;
-  --nx-7a8492: #8096aa;
-  --nx-7ce7be: #187550;
-  --nx-8491a2: #526b83;
-  --nx-879db3: #536c84;
-  --nx-8e9bad: #516780;
-  --nx-90a7bc: #587088;
-  --nx-91ebff: #0a6585;
-  --nx-92a9bd: #56718a;
-  --nx-96aabc: #58708a;
-  --nx-96afc5: #536a82;
-  --nx-99c2d4: #55758a;
-  --nx-9aa1ac: #9aa1ac;
-  --nx-9aafc6: #52677f;
-  --nx-a4b2c5: #5c7086;
+  --nx-3b4c61: #9fafbf;
+  --nx-3d4b63: #cfdee9;
+  --nx-3e7084: var(--nx-light-accent);
+  --nx-41272a: #eed9dc;
+  --nx-42d3ef: var(--nx-light-accent);
+  --nx-435a70: #9fafbf;
+  --nx-43c9e5: var(--nx-light-accent);
+  --nx-45546b: #9fafbf;
+  --nx-48caee: var(--nx-light-accent);
+  --nx-48cfe9: var(--nx-light-accent);
+  --nx-49576c: #9fafbf;
+  --nx-4b5a6d: #9fafbf;
+  --nx-4b6479: #9fafbf;
+  --nx-4bcde8: var(--nx-light-accent);
+  --nx-4dd8f8: var(--nx-light-accent);
+  --nx-50bfd8: var(--nx-light-accent);
+  --nx-50d5f2: var(--nx-light-accent);
+  --nx-51627a: #9fafbf;
+  --nx-51c7e6: var(--nx-light-accent);
+  --nx-51d4f4: var(--nx-light-accent);
+  --nx-52677d: #9fafbf;
+  --nx-54667b: #9fafbf;
+  --nx-55657a: #9fafbf;
+  --nx-55d8f3: var(--nx-light-accent);
+  --nx-56677b: #9fafbf;
+  --nx-58d7f3: var(--nx-light-accent);
+  --nx-5b738b: #9fafbf;
+  --nx-5b7791: #9fafbf;
+  --nx-5bd9f2: var(--nx-light-accent);
+  --nx-5ddcf5: var(--nx-light-accent);
+  --nx-5ed8ef: var(--nx-light-accent);
+  --nx-61d9ef: var(--nx-light-accent);
+  --nx-62e0fb: var(--nx-light-accent);
+  --nx-6adff4: var(--nx-light-accent);
+  --nx-743a4c: #eacbd1;
+  --nx-7a8492: #9fafbf;
+  --nx-7ce7be: var(--nx-light-success);
+  --nx-8491a2: #8299aa;
+  --nx-879db3: var(--nx-light-muted);
+  --nx-8e9bad: var(--nx-light-muted);
+  --nx-90a7bc: var(--nx-light-muted);
+  --nx-91ebff: var(--nx-light-accent);
+  --nx-92a9bd: var(--nx-light-muted);
+  --nx-96aabc: var(--nx-light-muted);
+  --nx-96afc5: var(--nx-light-muted);
+  --nx-99c2d4: var(--nx-light-muted);
+  --nx-9aa1ac: #98a9b8;
+  --nx-9aafc6: var(--nx-light-muted);
+  --nx-a4b2c5: var(--nx-light-muted);
   --nx-a855f7: #a855f7;
-  --nx-aab8c9: #50657b;
-  --nx-aabbd0: #536b84;
-  --nx-ad6667: #b84a52;
-  --nx-b0bfd0: #566d84;
-  --nx-b7cbe0: #455b73;
-  --nx-b8d6e4: #547387;
-  --nx-bcf1ff: #105b77;
-  --nx-bdc9d9: #4c6178;
-  --nx-c17d96: #bb5c76;
-  --nx-c5d6e6: #344c64;
-  --nx-c6d6e7: #344c64;
-  --nx-c9f6ff: #0c5975;
-  --nx-dce7f4: #2e4157;
-  --nx-dce8f5: #294057;
-  --nx-e5f8ff: #17435c;
-  --nx-e7edf8: #243449;
-  --nx-e9f0fa: #25394c;
-  --nx-eaf8ff: #183c52;
-  --nx-eafaff: #0c5975;
-  --nx-eee: #eeeeee;
-  --nx-eef5ff: #24384d;
-  --nx-f0f6fc: #25394c;
-  --nx-f0faff: #25425a;
-  --nx-f2f8fc: #25394c;
-  --nx-f4f8ff: #25394c;
-  --nx-f5faff: #244052;
-  --nx-ffba65: #a96b18;
-  --nx-ffcdcd: #8b2931;
+  --nx-aab8c9: var(--nx-light-muted);
+  --nx-aabbd0: var(--nx-light-muted);
+  --nx-ad6667: #a24353;
+  --nx-b0bfd0: var(--nx-light-muted);
+  --nx-b7cbe0: var(--nx-light-muted);
+  --nx-b8d6e4: var(--nx-light-muted);
+  --nx-bcf1ff: var(--nx-light-text);
+  --nx-bdc9d9: var(--nx-light-muted);
+  --nx-c17d96: #a24369;
+  --nx-c5d6e6: var(--nx-light-text);
+  --nx-c6d6e7: var(--nx-light-text);
+  --nx-c9f6ff: var(--nx-light-text);
+  --nx-dce7f4: var(--nx-light-text);
+  --nx-dce8f5: var(--nx-light-text);
+  --nx-e5f8ff: var(--nx-light-text);
+  --nx-e7edf8: var(--nx-light-text);
+  --nx-e9f0fa: var(--nx-light-text);
+  --nx-eaf8ff: var(--nx-light-text);
+  --nx-eafaff: var(--nx-light-text);
+  --nx-eee: #eef3f7;
+  --nx-eef5ff: var(--nx-light-text);
+  --nx-f0f6fc: var(--nx-light-text);
+  --nx-f0faff: var(--nx-light-text);
+  --nx-f2f8fc: var(--nx-light-text);
+  --nx-f4f8ff: var(--nx-light-text);
+  --nx-f5faff: var(--nx-light-text);
+  --nx-ffba65: #996619;
+  --nx-ffcdcd: #842b3e;
   --nx-fff: #ffffff;
 }
 :root[data-theme="dark"] {color-scheme:dark}
@@ -156,12 +167,38 @@
 .theme-panel h3{margin-top:4px}
 .theme-panel .theme-picker{display:flex;width:100%;justify-content:space-between}
 .theme-panel .theme-picker select{width:70%;min-height:40px}
-:root[data-theme="light"] .icon-btn:hover,:root[data-theme="light"] button:hover{color:#15384f}
-:root[data-theme="light"] .icon-btn.active,:root[data-theme="light"] button.active,:root[data-theme="light"] button[aria-pressed="true"]{color:#15455e}
-:root[data-theme="light"] .layer .layer-action.active{color:#087b9e}
-:root[data-theme="light"] .swatch.active{outline-color:#29425a}
-:root[data-theme="light"] .color-chip.active{border-color:#087b9e}
-:root[data-theme="light"] #nexusFloatingTooltip{color:#24374c}
-:root[data-theme="light"] .mobile-backdrop:not([hidden]){background:#0005}
-:root[data-theme="light"] .mobile-zoom-controls #mobileClearSelection{color:#72283c}
+
+:root[data-theme="light"] .icon-btn:hover,
+:root[data-theme="light"] button:hover:not(:disabled){color:var(--nx-light-text)}
+:root[data-theme="light"] button.active,
+:root[data-theme="light"] button[aria-pressed="true"],
+:root[data-theme="light"] .layer.active,
+:root[data-theme="light"] .animation-track.active,
+:root[data-theme="light"] .frame.active{border-color:var(--nx-light-accent)}
+:root[data-theme="light"] button.active,
+:root[data-theme="light"] button[aria-pressed="true"]{
+  background:var(--nx-light-accent-soft);color:var(--nx-light-accent-hover)
+}
+:root[data-theme="light"] .layer .layer-action.active,
+:root[data-theme="light"] .layer .layer-action:hover{
+  color:var(--nx-light-accent);background:transparent
+}
+:root[data-theme="light"] .swatch.active,
+:root[data-theme="light"] .palette .swatch.is-primary,
+:root[data-theme="light"] .gradient-stop.active,
+:root[data-theme="light"] .color-chip.active{
+  outline-color:var(--nx-light-accent);border-color:var(--nx-light-accent)
+}
+:root[data-theme="light"] :is(button,input,select,textarea):focus-visible{
+  outline:2px solid var(--nx-light-accent);outline-offset:2px
+}
+:root[data-theme="light"] :is(input[type="checkbox"],input[type="radio"],input[type="range"]){accent-color:var(--nx-light-accent)}
+:root[data-theme="light"] .theme-picker select:focus-visible{outline-color:var(--nx-light-accent)}
+:root[data-theme="light"] #nexusFloatingTooltip{
+  color:#f0f5f9;background:var(--nx-light-tooltip);border-color:#536a7b
+}
+:root[data-theme="light"] .timeline-playback-btn:hover:not(:disabled){color:var(--nx-light-accent-hover)}
+:root[data-theme="light"] .palette .swatch.is-secondary{
+  box-shadow:inset 0 0 0 2px var(--nx-ffba65,#996619)
+}
 @media(forced-colors:active){.theme-picker select{forced-color-adjust:auto}}

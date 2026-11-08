@@ -16,7 +16,7 @@
     document.documentElement.setAttribute("data-theme",value);
     document.documentElement.style.colorScheme=value;
     const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta)meta.setAttribute("content",value==="light"?"#eff4f9":"#1d2430");
+    if(meta)meta.setAttribute("content",value==="light"?"#dce5ed":"#1d2430");
   }
   function syncPicker(){
     document.querySelectorAll("[data-theme-picker]").forEach(el=>{

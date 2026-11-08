@@ -1,6 +1,6 @@
 # Nexus Pixel Web
 
-Editor de pixel art y animación. Versión **0.2.66** (reorganización para GitHub Pages).
+Editor de pixel art y animación. Versión **0.2.67** (reorganización para GitHub Pages).
 
 ## Archivos
 
@@ -263,3 +263,12 @@ y no adopta la apariencia de botón seleccionado durante la reproducción.
 habilitada y el foco no está en un campo, botón, selector, ventana u otro control.
 Se ignoran eventos de repetición por tecla mantenida. El Play sigue admitiendo
 clic y activación de teclado habitual; el arrastre para organizar fotogramas no cambia.
+
+## Tema claro más cómodo y acentos consistentes (0.2.67)
+
+Fondo y paneles pasan de blancos intensos a grises azulados suaves, con
+controles claramente diferenciados. Los acentos de selección, enfoque, botones
+activos, paletas y fotogramas emplean el mismo azul petróleo. Se conservan las
+señales semánticas (naranja para el color secundario, rojo para alertas,
+verde para éxito), el tema oscuro y todos los colores del lienzo y recursos.
+El tema claro también ajusta el color de la barra del navegador.
