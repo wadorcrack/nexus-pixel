@@ -426,3 +426,6 @@ header #toggleAnimation[aria-pressed="true"]{background:var(--nx-164e65,#164e65)
 
 /* 0.2.71: herramientas de volteo junto a Deshacer / Rehacer. */
 .edit-buttons #flipHorizontal,.edit-buttons #flipVertical{flex-shrink:0}
+
+/* Opciones contextuales de la herramienta activa */
+.contextual-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:44px;padding:7px 12px;background:var(--nx-1d2430,#1d2430);border-bottom:1px solid var(--nx-384152,#384152);font-size:12px}.contextual-toolbar strong{color:var(--nx-5ddcf5,#5ddcf5);white-space:nowrap}.contextual-option{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.contextual-option input[type=range]{width:90px}.contextual-number{width:56px!important}.contextual-hint{color:var(--nx-a4b2c5,#a4b2c5);font-size:11px}@media(max-width:760px){.contextual-toolbar{gap:8px;min-height:40px}}
